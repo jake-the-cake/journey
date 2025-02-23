@@ -42,7 +42,7 @@ class RequestBody {
 			** arguments:
 				1. data (FormData) - The form data Object.
 		*/
-		Array.from(data).forEach(([key, value]: any): void => {
+		(Array.from(data) as string[][]).forEach(([key, value]: string[]): void => {
 			this.insert(key, value)
 		})
 	}
