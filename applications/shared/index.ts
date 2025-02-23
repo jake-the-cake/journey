@@ -1,3 +1,7 @@
-console.log('shared/index.js')
-const shared = 'shared'
-export { shared }
+import * as REQ from './request'
+
+const object = {
+	REQ
+}
+
+export default object
