@@ -7,68 +7,50 @@
 
 import { DataObjectType } from '../types'
 
+/**
+ * Class representing a request body.
+ */
 class RequestBody {
-	/*
-		Takes in form data and parses it into a data object during the init.
-		
-		** properties:
-			1. object (Object) - Contains form data.
-		
-		** methods:
-			1. setData (void) - Parses form data.
-			2. insert (void) - Sets an individual Object property.
-			3. data (string) - Returns JSON string on the 'object' property.
-	*/
+	/**
+	 * The object containing form data.
+	 * @type {DataObjectType}
+	 */
 	object: DataObjectType
 
+	/**
+	 * Creates an instance of RequestBody.
+	 * @param {FormData} data - The form data object.
+	 */
 	constructor(data: FormData) {
-		/*
-			Inits an empty Object and then fills it with parsed form data using 'setData'.
-			*** SEE NOTES
-			
-			** arguments:
-				1. data (FormData) - The form data Object.
-		*/
-		this.object = {}
-		this.setData(data)
+			this.object = {}
+			this.setData(data)
 	}
 
+	/**
+	 * Parses the form data and sets it to the object property.
+	 * @param {FormData} data - The form data object.
+	 */
 	setData(data: FormData): void {
-		/*
-			Takes the form data, and parses it into 'object' by iterating the data and adding each key/value to 'object' using 'insert'.
-			
-			>>> No return
-		
-			** arguments:
-				1. data (FormData) - The form data Object.
-		*/
-		(Array.from(data) as string[][]).forEach(([key, value]: string[]): void => {
-			this.insert(key, value)
-		})
+			(Array.from(data) as string[][]).forEach(([key, value]: string[]): void => {
+					this.insert(key, value)
+			})
 	}
 
+	/**
+	 * Sets a key/value pair in the object property.
+	 * @param {string} key - The key of the object property.
+	 * @param {string} value - The value of the object property.
+	 */
 	insert(key: string, value: string): void {
-		/*
-			Sets a key/value pair in 'object'.
-
-			>>> No return
-
-			** arguments:
-				1. key (string)
-				2. value (string)
-		*/
-		this.object[key] = value
+			this.object[key] = value
 	}
 
+	/**
+	 * Returns the JSON string representation of the object property.
+	 * @returns {string} The JSON string representation of the object property.
+	 */
 	data(): string {
-		/*
-			Return JSON of 'object' as a string. 
-		
-			>>> Return string
-			 
-			** No arguments
-		*/
-		return JSON.stringify(this.object)
+			return JSON.stringify(this.object)
 	}
 }
 
