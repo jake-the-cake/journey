@@ -3,19 +3,44 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	--primary-hue: 121;
+	--primary-sat: 49%;
+
+	--primary-lit: 41%;
+	--primary-lit-light: 66%;
+	--primary-lit-dark: 29%;
+	
+	--primary-hsl: var(--primary-hue), var(--primary-sat), var(--primary-lit);
+	--primary-hsl-light: var(--primary-hue), var(--primary-sat), var(--primary-lit-light);
+	--primary-hsl-dark: var(--primary-hue), var(--primary-sat), var(--primary-lit-dark);
+	
+	--primary: hsl(var(--primary-hsl));
+	--primary-light: hsl(var(--primary-hsl-light));
+	--primary-dark: hsl(var(--primary-hsl-dark));
+
+	--secondary-hue: 23;
+	--secondary-sat: 37%;
+	--secondary-lit: 32%;
+
+	--accent-hue: 215;
+	--accent-sat: 70%;
+	--accent-lit: 70%;
+	
+	--secondary-hsl: var(--secondary-hue), var(--secondary-sat), var(--secondary-lit);
+	--accent-hsl: var(--accent-hue), var(--accent-sat), var(--accent-lit);
+	
+	--secondary: hsl(var(--secondary-hsl));
+	--accent: hsl(var(--accent-hsl));
+
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--primary-light);
+  background: var(--primary);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	background-color: var(--primary-dark);
 }

@@ -1,1 +1,5 @@
-console.log('Hello from shared/api/index.ts');
+import ApiCall from './call'
+
+export {
+	ApiCall
+}

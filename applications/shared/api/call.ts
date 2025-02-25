@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class ApiClient {
+class ApiCall {
 
 	baseURL: string
 	axiosInstance: any
@@ -92,4 +92,4 @@ class ApiClient {
   }
 }
 
-export default new ApiClient(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000')
+export default new ApiCall(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000')
