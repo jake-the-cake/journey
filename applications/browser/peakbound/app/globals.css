@@ -3,21 +3,31 @@
 @tailwind utilities;
 
 :root {
+	/* transparency constants  */
+	--dim: .8;
+	--half: .5;
+	--tran: .2;
 
+	/* primary color settings */
 	--primary-hue: 121;
 	--primary-sat: 49%;
-
 	--primary-lit: 41%;
-	--primary-lit-light: 66%;
+	--primary-lit-light: 62%;
 	--primary-lit-dark: 29%;
 	
-	--primary-hsl: var(--primary-hue), var(--primary-sat), var(--primary-lit);
-	--primary-hsl-light: var(--primary-hue), var(--primary-sat), var(--primary-lit-light);
-	--primary-hsl-dark: var(--primary-hue), var(--primary-sat), var(--primary-lit-dark);
+	/*  primary color setups */
+	--primary-hs: var(--primary-hue), var(--primary-sat);
+	--primary-hsl: var(--primary-hs), var(--primary-lit);
+	--primary-hsl-light: var(--primary-hs), var(--primary-lit-light);
+	--primary-hsl-dark: var(--primary-hs), var(--primary-lit-dark);
 	
+	/* primary color variants */
 	--primary: hsl(var(--primary-hsl));
 	--primary-light: hsl(var(--primary-hsl-light));
 	--primary-dark: hsl(var(--primary-hsl-dark));
+	--primary-dim: hsl(var(--primary-hsl), var(--dim));
+	--primary-half: hsl(var(--primary-hsl), var(--half));
+	--primary-tran: hsl(var(--primary-hsl), var(--tran));
 
 	--secondary-hue: 23;
 	--secondary-sat: 37%;
@@ -36,8 +46,8 @@
 }
 
 body {
-  color: var(--primary-light);
-  background: var(--primary);
+  color: var(--secondary);
+  background: var(--primary-light);
   font-family: Arial, Helvetica, sans-serif;
 }
 
