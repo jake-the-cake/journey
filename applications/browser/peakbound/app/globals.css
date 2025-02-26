@@ -102,6 +102,7 @@ h3 {
 nav {
 	background-color: var(--secondary-dark);
 	color: var(--secondary-light);
+	position: relative;
 }
 
 a {

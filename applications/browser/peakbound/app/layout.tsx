@@ -15,7 +15,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
 				<nav>
-					Peak Bound Journeys
+					<div className="logo">
+						Peak Bound Journeys
+					</div>
 					<a href="#">Link</a>
 				</nav>
         {children}
