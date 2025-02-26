@@ -71,6 +71,9 @@
 	--accent-half: hsl(var(--accent-hsl), var(--half));
 	--accent-tran: hsl(var(--accent-hsl), var(--tran));
 
+	--light: #dadada;
+	--dark: #121212;
+
 }
 
 * {
@@ -78,13 +81,13 @@
 }
 
 body {
-	font-size: 1.4em;
 	letter-spacing: .8px;
 	margin: 0;
 	padding: 0;
   color: var(--accent);
   background: var(--primary-light);
   font-family: Arial, Helvetica, sans-serif;
+	height: 200vh;
 }
 
 h1 {
@@ -100,11 +103,33 @@ h3 {
 }
 
 nav {
-	background-color: var(--secondary-dark);
-	color: var(--secondary-light);
-	position: relative;
+	background-color: var(--primary-dark);
+	position: sticky;
+	top: 0;
+	padding: 0;
+	
+}
+
+nav .logo {
+	color: var(--secondary-half);
+	width: 100%;
+	text-align: center;
+	line-height: 2rem;
+	font-size: 2.5rem;
+	font-weight: 700;
+	font-family: cursive;
+	text-shadow: 1px 1px 0 var(--light), -1px -1px 0 var(--dark);
+}
+
+nav .menu {
+	position: absolute;
+	top: 0;
+	right: 1rem;
+	background-color: red;
+	height: 100%;
+	aspect-ratio: 1;
 }
 
 a {
-	color: var(--accent);
+	color: var(--accent-dark);
 }

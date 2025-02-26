@@ -18,7 +18,7 @@ export default function RootLayout({
 					<div className="logo">
 						Peak Bound Journeys
 					</div>
-					<a href="#">Link</a>
+					<div className="menu"></div>
 				</nav>
         {children}
       </body>
