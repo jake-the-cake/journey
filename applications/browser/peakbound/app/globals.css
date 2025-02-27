@@ -114,20 +114,38 @@ nav .logo {
 	color: var(--secondary-half);
 	width: 100%;
 	text-align: center;
-	line-height: 2rem;
+	line-height: 2.1rem;
 	font-size: 2.5rem;
 	font-weight: 700;
 	font-family: cursive;
 	text-shadow: 1px 1px 0 var(--light), -1px -1px 0 var(--dark);
+	box-shadow: 0 0 7px var(--dark), inset 0 4px 5px -5px var(--primary-light), inset 0 -5px 5px -5px var(--secondary-dark);
 }
 
-nav .menu {
+nav .menu-icon {
 	position: absolute;
 	top: 0;
 	right: 1rem;
-	background-color: red;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 15%;
 	height: 100%;
-	aspect-ratio: 1;
+	cursor: pointer;
+	aspect-ratio: 3/4;
+}
+
+.menu-icon .menu-bar {
+	transition: background-color .2s;
+	height: 12%;
+	width: 100%;
+	background-color: var(--primary-light);
+	border-radius: 999px;
+	box-shadow: 0 1px 2px var(--dark);
+}
+
+.menu-icon:hover .menu-bar {
+	background-color: var(--accent-light);
 }
 
 a {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import { MouseEventHandler } from "react"
 
 export const metadata: Metadata = {
   title: "Peak Bound Journeys",
@@ -11,6 +12,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
+	function handleMenuClick(e: MouseEventHandler<HTMLDivElement>) {
+		e.target.style.display = 'none'
+	}
+
   return (
     <html lang="en">
       <body className={`antialiased`}>
@@ -18,7 +24,11 @@ export default function RootLayout({
 					<div className="logo">
 						Peak Bound Journeys
 					</div>
-					<div className="menu"></div>
+					<div className="menu-icon" onClick={ handleMenuClick }>
+						<div className="menu-bar"></div>
+						<div className="menu-bar"></div>
+						<div className="menu-bar"></div>
+					</div>
 				</nav>
         {children}
       </body>
