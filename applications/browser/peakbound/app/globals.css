@@ -82,10 +82,8 @@
 
 body {
 	letter-spacing: .8px;
-	margin: 0;
-	padding: 0;
-  color: var(--accent);
-  background: var(--primary-light);
+  color: var(--dark);
+  background: var(--secondary-light);
   font-family: Arial, Helvetica, sans-serif;
 	height: 200vh;
 }
@@ -103,23 +101,21 @@ h3 {
 }
 
 nav {
-	background-color: var(--primary-dark);
+	background-color: var(--primary);
 	position: sticky;
 	top: 0;
-	padding: 0;
-	
 }
 
 nav .logo {
-	color: var(--accent-dark);
+	color: var(--light);
 	width: 100%;
 	text-align: center;
 	line-height: 2.1rem;
 	font-size: 2.5rem;
 	font-weight: 700;
 	font-family: cursive;
-	text-shadow: 1px 1px 0 var(--light), -1px -1px 0 var(--dark);
-	box-shadow: 0 0 7px var(--dark), inset 0 4px 5px -5px var(--primary-light), inset 0 -5px 5px -5px var(--secondary-dark);
+	text-shadow: 1px 1px 0 var(--secondary-dark), -1px -1px 0 var(--secondary-light);
+	box-shadow: 0 0 7px var(--secondary-dark), inset 0 4px 5px -5px var(--primary-light), inset 0 -5px 5px -6px var(--primary-dark);
 }
 
 nav .menu-icon {
@@ -133,6 +129,11 @@ nav .menu-icon {
 	height: 100%;
 	cursor: pointer;
 	aspect-ratio: 3/4;
+}
+
+nav .menu {
+	display: flex;
+	justify-content: space-between;
 }
 
 .menu-icon .menu-bar {
