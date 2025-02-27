@@ -111,7 +111,7 @@ nav {
 }
 
 nav .logo {
-	color: var(--secondary-half);
+	color: var(--accent-dark);
 	width: 100%;
 	text-align: center;
 	line-height: 2.1rem;
@@ -145,7 +145,7 @@ nav .menu-icon {
 }
 
 .menu-icon:hover .menu-bar {
-	background-color: var(--accent-light);
+	background-color: var(--accent);
 }
 
 a {
