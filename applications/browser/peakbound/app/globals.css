@@ -51,10 +51,10 @@
 	--secondary-tran: hsl(var(--secondary-hsl), var(--tran));
 
 	/* accent color settings */
-	--accent-hue: 215;
+	--accent-hue: 60;
 	--accent-sat: 70%;
-	--accent-lit: 64%;
-	--accent-lit-light: 76%;
+	--accent-lit: 62%;
+	--accent-lit-light: 72%;
 	--accent-lit-dark: 40%;
 	
 	/* accent color setups */
@@ -74,6 +74,7 @@
 	--light: #dadada;
 	--dark: #121212;
 
+	--shadow-text: 1px 1px 0 var(--secondary-dark), -1px -1px 0 var(--secondary-light);
 }
 
 * {
@@ -83,7 +84,7 @@
 body {
 	letter-spacing: .8px;
   color: var(--dark);
-  background: var(--secondary-light);
+  background: var(--light);
   font-family: Arial, Helvetica, sans-serif;
 	height: 200vh;
 }
@@ -101,12 +102,14 @@ h3 {
 }
 
 nav {
-	background-color: var(--primary);
 	position: sticky;
 	top: 0;
 }
 
 nav .logo {
+	position: relative;
+	z-index: 5;
+	background-color: var(--primary);
 	color: var(--light);
 	width: 100%;
 	text-align: center;
@@ -120,29 +123,94 @@ nav .logo {
 
 nav .menu-icon {
 	position: absolute;
+	z-index: 10;
 	top: 0;
 	right: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	gap: 15%;
-	height: 100%;
+	gap: 12%;
+	height: 2rem;
 	cursor: pointer;
 	aspect-ratio: 3/4;
 }
 
 nav .menu {
+	position: relative;
+	z-index: 4;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	gap: 1rem;
+	align-items: end;
+	background-color: var(--secondary-light);
+	color: var(--accent);
+	font-weight: 700;
+	font-variant: small-caps;
+}
+
+nav .menu * {
+	text-align: center;
+}
+
+.menu-category,
+.menu-category-items div {
+	transition: .2s color;
+	cursor: pointer;
+}
+
+
+nav .menu li {
+	position: relative;
+	z-index: 5;
+	font-size: .9rem;
+}
+
+.menu-category-items {
+	background-color: var(--secondary-light);
+	padding-inline: 1px;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	position: absolute;
+	left: 0;
+	transition: height .5s;
+	height: 0%;
+	min-width: 100%;
+	width: max-content;
+	overflow: hidden;
+	z-index: -1;
+}
+
+.menu-category-items div {
+	padding-inline: .5rem;
+	background-color: var(--primary-half);
+}
+
+.menu-category-items div:last-child {
+	margin-bottom: 1px;
+}
+
+.menu-category:hover + .menu-category-items {
+	height: fit-content;
+}
+
+.menu-category:hover,
+.menu-category-items div:hover {
+	color: var(--primary-lightz);
+}
+
+.menu-category {
+	z-index: 1;
+	background-color: var(--secondary-light);
 }
 
 .menu-icon .menu-bar {
 	transition: background-color .2s;
-	height: 12%;
+	height: 10%;
 	width: 100%;
-	background-color: var(--primary-light);
+	background-color: var(--light);
 	border-radius: 999px;
-	box-shadow: 0 1px 2px var(--dark);
+	box-shadow: var(--shadow-text);
 }
 
 .menu-icon:hover .menu-bar {
@@ -151,4 +219,11 @@ nav .menu {
 
 a {
 	color: var(--accent-dark);
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--light);
 }
