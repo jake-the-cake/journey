@@ -181,6 +181,10 @@ nav .menu li {
 	z-index: -1;
 }
 
+.expanded-menu-category {
+	height: fit-content !important;
+}
+
 .menu-category-items div {
 	padding-inline: .5rem;
 	background-color: var(--primary-half);
@@ -190,13 +194,9 @@ nav .menu li {
 	margin-bottom: 1px;
 }
 
-.menu-category:hover + .menu-category-items {
-	height: fit-content;
-}
-
 .menu-category:hover,
 .menu-category-items div:hover {
-	color: var(--primary-lightz);
+	color: var(--primary-light);
 }
 
 .menu-category {
@@ -217,13 +217,18 @@ nav .menu li {
 	background-color: var(--accent);
 }
 
-a {
-	color: var(--accent-dark);
+.menu a {
+	color: var(--accent);
+	transition: .2s color;
+}
+
+.menu a:hover {
+	color: var(--secondary-dark);
 }
 
 main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	color: var(--light);
+	color: var(--primary-dark);
 }
