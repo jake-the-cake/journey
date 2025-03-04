@@ -9,19 +9,16 @@ export default function Navbar() {
 	}
 
 	function getCategoryList(target: HTMLDivElement): HTMLDivElement | void {
-		console.log(target)
 		const parent = target.parentNode
 		if (!parent) throw new Error('Missing navbar element.')
 		const list = parent!.querySelector('.menu-category-items')
 		if (list) return list as HTMLDivElement
 	}
 
-
 	function handleExpandClose(list: HTMLDivElement): (e: any) => void {
 		return function(e: MouseEvent<HTMLDivElement>) {
 			if (list && !list.contains(e.currentTarget)) {
 				list.classList.remove('expanded-menu-category')
-				console.log(list)
 			}
 		}
 	}
@@ -30,7 +27,6 @@ export default function Navbar() {
 		const list = getCategoryList(e.currentTarget)
 		if (list) {
 			list?.classList.add('expanded-menu-category')
-			console.log(list)
 			document.addEventListener('click', handleExpandClose(list) as any, { once: true })
 		}
 	}
