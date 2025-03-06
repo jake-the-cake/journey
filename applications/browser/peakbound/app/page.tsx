@@ -27,11 +27,15 @@ export default function Home() {
 
   return (
 		<main>
-			<section className="full nature">
+			<section className="full primary">
 				<h1 className='hero'>Who Are YOU?</h1>
-				<p></p>
+				<p className='hero'>
+					More importantly... who do you want to be?
+				</p>
+			</section>
+			<section className="full nature">
 				<div className="pyramid-container">
-					<button className="">Create Your New Path</button>
+					<button>Create Your New Path</button>
 					<div className="pyramid-list">
 						<h2 className="">Recover</h2>
 						<h2>Rebuild</h2>
