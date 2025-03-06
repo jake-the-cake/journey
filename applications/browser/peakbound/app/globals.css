@@ -234,6 +234,8 @@ main {
 
 section {
 	--bg: transparent;
+	position: relative;
+	z-index: -1;
 	background-color: var(--bg);
 	width: 100vw;
 	display: flex;
@@ -245,26 +247,78 @@ section.accent {
 	--bg: var(--accent-half);
 }
 
+section.full {
+	height: 100vh;
+}
+
+section.nature {
+	background: linear-gradient(to bottom, hsl(240, 100%, 80%), var(--primary))
+}
+
+h1.hero {
+	color: white;
+	font-weight: 700;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	text-shadow: 1px 1px 0 var(--secondary-light), 1px 3px 2px var(--secondary-dark);
+	margin: auto;
+}
+
+button {
+	border-radius: .5rem;
+	padding: .5rem 1rem;
+	border: 2px solid var(--secondary-dark);
+	background-color: var(--accent);
+	font-weight: 700;
+	color: var(--secondary-dark);
+	transition: .2s background-color;
+}
+
+button:hover {
+	background-color: var(--primary);
+	color: var(--light);
+	border-color: var(--light);
+}
+
 .pyramid-container {
 	perspective: 180px;
 	margin: auto;
-	padding-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2.5rem;
 }
 
 .pyramid-list {
+	margin: auto;
+	width: fit-content;
 	overflow: hidden;
-	padding: 1rem;
-	text-shadow: 1px 1px 0px var(--primary-light), 1px 3px 2px var(--secondary-dark) ;
-	transform: rotateX(35deg) scaleY(0.8);
+	padding: 1rem 1rem 0;
+	text-shadow: 1px 1px 0px var(--dark), 1px 4px 1px var(--secondary-dark) ;
+	transform: rotateX(45deg) scaleY(0.9) scaleX(0.6);
 	transform-origin: top;
-	background-color: var(--primary-tran);
+	color: var(--accent);
+	background-color: var(--secondary);
 	box-shadow: 0 4px 5px -2px var(--dark);
 	display: flex;
 	flex-direction: column;
 	gap: .5rem;
 
 	h2 {
+		transform: rotateX(90deg);
+		transform-origin: top;
 		text-align: center;
+		padding-inline: .5rem;
+		background-color: var(--accent-tran);
+		border-radius: .25rem;
+		box-shadow: 0 1px 3px -2px var(--light), inset 0 -1px 2px -2px var(--dark);
+		transition: .75s transform;
+
+		&:last-child {
+			margin-bottom: .2rem;
+		}
+
+		&.dropped {
+			transform: rotateX(-20deg);
+		}
 	}
 
 }
