@@ -235,7 +235,6 @@ main {
 section {
 	--bg: transparent;
 	position: relative;
-	/* z-index: -1; */
 	background-color: var(--bg);
 	width: 100vw;
 	display: flex;
@@ -268,12 +267,12 @@ h1.hero {
 	font-weight: 700;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	text-shadow: 1px 1px 0 var(--secondary-light), 1px 3px 2px var(--secondary-dark);
-	margin: auto;
+	margin-inline: auto;
 }
 
 p.hero {
 	color: var(--secondary);
-	margin: auto;
+	margin-inline: auto;
 	font-family: monospace;
 	font-style: italic;
 }
