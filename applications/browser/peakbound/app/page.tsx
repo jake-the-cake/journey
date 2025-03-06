@@ -27,8 +27,8 @@ export default function Home() {
 
   return (
 		<main>
-			<section className="full primary">
-				<h1 className='hero'>Who Are YOU?</h1>
+			<section className="full secondary">
+				<h1 className='hero'>Who Are You?</h1>
 				<p className='hero'>
 					More importantly... who do you want to be?
 				</p>
@@ -37,7 +37,7 @@ export default function Home() {
 				<div className="pyramid-container">
 					<button>Create Your New Path</button>
 					<div className="pyramid-list">
-						<h2 className="">Recover</h2>
+						<h2>Recover</h2>
 						<h2>Rebuild</h2>
 						<h2>Redeem</h2>
 					</div>
