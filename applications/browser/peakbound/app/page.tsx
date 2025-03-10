@@ -38,13 +38,24 @@ export default function Home() {
   return (
 		<main>
 			<section className="full apart">
-				<div className="hero-head">
+				<h3 className='bold'>
+					"Nothing Changes If Nothing Changes"
+				</h3>
+				<p>
+					If you've stumbled across this page, it's likely that your life isn't going quite as planned, and you are <u><span className="bold">ready</span> for a real change</u>.
+				</p>
+				<p className='italic'>
+					So lets start with a simple, but important question:
+				</p>
+				<div className="hero-head overlay">
 					<h1 className='title'>
 						Who Are You?
 					</h1>
 					<p className='caption'>
-						More importantly... who do you <span className="bold">want</span> to be?
+						More importantly... <u>who do you <span className="bold">want</span> to be?</u>
 					</p>
+					<br />
+					<button>Tell Us About Yourself</button>
 				</div>
 				<p>
 					We often aim to be the person that others would want to be around, instead of being the person that we want to be around; essentially putting on a performance in order to feel accepted. It's exhausting, for sure, and extremely unnecessary.
@@ -54,8 +65,11 @@ export default function Home() {
 				</p>
 				<DreamBox />
 				<p>
-					How do we accomplish this? A <span className="bold">full</span> transformation of one's self.
+					How do we accomplish this? 
 				</p>
+				<h3>
+					A <span className="bold">full</span> transformation of one's self.
+				</h3>
 				<p>
 					It's not going to be easy. But, with a community of like-minded individuals, and the guidance of others who have created their new path, this transformation is not only possible, it's inevitable.
 				</p>

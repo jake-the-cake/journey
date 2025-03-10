@@ -15,11 +15,11 @@ export default function DreamBox() {
 
 	function handleExpand(e: MouseEvent<HTMLButtonElement>) {
 		e.preventDefault()
-		setActive(true)
+		setActive(!active)
 	}
 
 	return (
-		<div className="dream-box">
+		<div className="dream-box overlay">
 			<div>
 			{
 				active === false
@@ -33,8 +33,8 @@ export default function DreamBox() {
 						<h2 className="cursive">
 							What Is Yours?
 						</h2>
-						<textarea cols={ 20 } rows={ 5 } placeholder="I really want to be..." />
-						<button>Make It Happen</button>
+						<textarea cols={ 20 } rows={ 5 } placeholder="I really want to be..." className='overlay accent' />
+						<button onClick={ handleExpand }>Make It Happen</button>
 					</form>
 				</>)
 			}
