@@ -16,19 +16,19 @@ export default function Home() {
 			cards.forEach((card: Element) => {
 				card.classList.remove('dropped')
 			})
-			useTimeout(dropCard, 0)
+			setCustomTimeout(dropCard, 0)
 		}
 
 		function dropCard(index: number = 0): void {
 			cards[index].classList.add('dropped')
 			index++
-			if (cards.length > index) useTimeout(dropCard, index)
-			else useTimeout(resetCards)
+			if (cards.length > index) setCustomTimeout(dropCard, index)
+			else setCustomTimeout(resetCards)
 		}
 
 		type argFunction = (args: any) => void
 
-		function useTimeout(callback: argFunction, ...args: any) {
+		function setCustomTimeout(callback: argFunction, ...args: any) {
 			setTimeout(() => {
 				callback(args)
 			}, 1500)
@@ -42,7 +42,7 @@ export default function Home() {
 					"Nothing Changes If Nothing Changes"
 				</h3>
 				<p>
-					If you've stumbled across this page, it's likely that your life isn't going quite as planned, and you are <u><span className="bold">ready</span> for a real change</u>.
+					If you've stumbled across this page, it's likely that a couple of things are true; your life isn't going quite as planned, and you are <u><span className="bold">ready</span> for a real change</u>.
 				</p>
 				<p className='italic'>
 					So lets start with a simple, but important question:

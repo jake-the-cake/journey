@@ -1,11 +1,13 @@
 'use client';
 
-import { EventHandler, MouseEvent } from "react"
+import { MouseEvent } from "react"
+import Link from "next/link"
 
 export default function Navbar() {
 	
 	function handleMenuClick(e: MouseEvent<HTMLDivElement>) {
 		console.log("Menu clicked")
+		e.preventDefault()
 	}
 
 	function getCategoryList(target: HTMLDivElement): HTMLDivElement | void {
@@ -15,7 +17,7 @@ export default function Navbar() {
 		if (list) return list as HTMLDivElement
 	}
 
-	function handleExpandClose(list: HTMLDivElement): (e: any) => void {
+	function handleExpandClose(list: HTMLDivElement): (e: MouseEvent<HTMLDivElement>) => void {
 		return function(e: MouseEvent<HTMLDivElement>) {
 			if (list && !list.contains(e.currentTarget)) {
 				list.classList.remove('expanded-menu-category')
@@ -34,9 +36,9 @@ export default function Navbar() {
 	return (
 		<nav>
 			<div className="logo">
-				<a href="/">
+				<Link href="/">
 					Peak Bound Journeys
-				</a>
+				</Link>
 			</div>
 			<div className="menu-icon" onClick={ handleMenuClick }>
 				<div className="menu-bar"></div>
