@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { MouseEventHandler } from "react"
 import Navbar from "./_components/Navbar"
 
 export const metadata: Metadata = {
