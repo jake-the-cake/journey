@@ -29,7 +29,7 @@ export default function Navbar() {
 		const list = getCategoryList(e.currentTarget)
 		if (list) {
 			list?.classList.add('expanded-menu-category')
-			document.addEventListener('click', handleExpandClose(list), { once: true })
+			document.addEventListener('click', handleExpandClose(list) as any, { once: true })
 		}
 	}
 
