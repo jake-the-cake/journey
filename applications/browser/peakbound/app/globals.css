@@ -91,8 +91,46 @@ nav {
 	flex-direction: column;
 	align-items: center;
 }
-.main-logo {
+
+nav img.main-logo {
 	width: 300px;
 	max-width: 75vw;
-	filter: brightness(8) saturate(var(--primary-sat)) hue-rotate(var(--primary-hue)deg);
+	opacity: 0;
+}
+
+.main-logo {
+	height: fit-content;
+  background-color: var(--primary);
+  -webkit-mask: url('/peakboundmountains.png') no-repeat center;
+  -webkit-mask-size: contain;
+  mask: url('/peakboundmountains.png') no-repeat center;
+  mask-size: contain;
+}
+
+.menu-bar {
+	width: 75vw;
+	border-top: 1px solid var(--primary);
+	border-bottom: 1px solid var(--primary);
+	
+	ul {
+		font-weight: 600;
+		font-variant: small-caps;
+		list-style: none;
+		margin: 2px 0;
+		padding: 0;
+		display: flex;
+		justify-content: space-around;
+		background-color: var(--primary);
+	}
+
+	li a {
+		color: var(--light);
+		font-size: .9rem;
+		text-decoration: none;
+		transition: .3s linear color;
+		
+		&:hover {
+			color: var(--secondary);
+		}
+	}
 }
