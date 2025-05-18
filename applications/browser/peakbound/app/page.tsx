@@ -1,8 +1,33 @@
+import Link from "next/link"
+import CalendarRow from "./_components/CalendarRow"
+
 export default function Home() {
 
   return (
 		<main>
-			Hey
+			<div className="primary-card-t text-sm col-10 col-c">
+				<p className="italic text-c">Peak Bound is a community wellness movement with an emphasis on combining physical fitness with spiritual growth. It's our aim to provide outdoor group programs and events that will give people a chance to enjoy the beauty of nature and spend quality time with their fellow humans, regardless of age, size, and background.</p>
+				<Link href="/join" className="box-link">Click Here To Join For Free</Link>
+			</div>
+			<div>
+				<h3>Upcoming Events</h3>
+				<div>
+					<div id='event-calendar'>
+						<CalendarRow data={ [
+							{ dayNumber: 1, eventCount: 0, dayOfWeek: 0, month: 0, year: 2024 },
+							{ dayNumber: 2, eventCount: 0, dayOfWeek: 1, month: 0, year: 2024 },
+							{ dayNumber: 3, eventCount: 0, dayOfWeek: 2, month: 0, year: 2024 },
+							{ dayNumber: 4, eventCount: 0, dayOfWeek: 3, month: 0, year: 2024 },
+							{ dayNumber: 5, eventCount: 0, dayOfWeek: 4, month: 0, year: 2024 },
+							{ dayNumber: 6, eventCount: 0, dayOfWeek: 5, month: 0, year: 2024 },
+							{ dayNumber: 7, eventCount: 1, dayOfWeek: 6, month: 1, year: 2024 }
+						] } size='mini' />
+					</div>
+					<div id='event-list'>
+						
+					</div>
+				</div>
+			</div>
 		</main>
-	);
+	)
 }
