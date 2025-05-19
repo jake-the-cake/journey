@@ -15,9 +15,10 @@ export default function Navbar() {
 			</div>
 			<div className="menu-bar">
 				<ul>
-					<li><Link href={ '/schedule' }>Schedule</Link></li>
+					<li><Link href={ '/schedule' }>Events</Link></li>
 					<li><Link href={ '/programs' }>Programs</Link></li>
-					<li><Link href={ '/aboutus' }>About Us</Link></li>
+					<li><Link href={ '/media' }>Media</Link></li>
+					<li><Link href={ '/info' }>Info</Link></li>
 					<li><Link href={ '/support' }>Support</Link></li>
 				</ul>
 			</div>
