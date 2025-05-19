@@ -23,7 +23,13 @@ function CalendarDay({ day }: { day: CalendarDayData }) {
 				 : 
 					<div className="calendar-day">
 						<div className="day-number">{ dayNumber }</div>
-						<div className="event-count">{ eventCount }</div>
+						{
+							eventCount > 0 ? (
+								<div className="event-count">{ eventCount }</div>
+							) : (
+								<div className="event-count-none"></div>
+							)
+						}
 					</div>
 			}
 		</>

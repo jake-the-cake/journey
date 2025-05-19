@@ -11,7 +11,7 @@ export default function Home() {
 			</div>
 			<div>
 				<h3>Upcoming Events</h3>
-				<div>
+				<div className="row-10">
 					<div id='event-calendar'>
 						<CalendarRow data={ [
 							{ dayNumber: 1, eventCount: 0, dayOfWeek: 0, month: 0, year: 2024 },
@@ -24,7 +24,7 @@ export default function Home() {
 						] } size='mini' />
 					</div>
 					<div id='event-list'>
-						
+						<Link href="schedule" className="box-link">Click Here To View The Full Schedule</Link>
 					</div>
 				</div>
 			</div>
