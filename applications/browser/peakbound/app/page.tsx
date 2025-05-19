@@ -6,7 +6,7 @@ export default function Home() {
   return (
 		<main>
 			<div className="primary-card-t text-sm col-10 col-c">
-				<p className="italic text-c">Peak Bound is a community wellness movement with an emphasis on combining physical fitness with spiritual growth. It's our aim to provide outdoor group programs and events that will give people a chance to enjoy the beauty of nature and spend quality time with their fellow humans, regardless of age, size, and background.</p>
+				<p className="italic text-c">Peak Bound is a community wellness movement that blends physical fitness with spiritual growth. Our mission is to create outdoor group programs and events that invite people to experience the beauty of nature while connecting meaningfully with others—no matter their experience level.</p>
 				<Link href="/join" className="box-link">Click Here To Join For Free</Link>
 			</div>
 			<div>

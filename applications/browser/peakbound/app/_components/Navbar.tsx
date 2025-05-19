@@ -18,7 +18,7 @@ export default function Navbar() {
 					<li><Link href={ '/schedule' }>Schedule</Link></li>
 					<li><Link href={ '/programs' }>Programs</Link></li>
 					<li><Link href={ '/aboutus' }>About Us</Link></li>
-					<li><Link href={ '/donate' }>Donate</Link></li>
+					<li><Link href={ '/support' }>Support</Link></li>
 				</ul>
 			</div>
 		</nav>
