@@ -18,11 +18,11 @@ function CalendarDay({ day }: { day: CalendarDayData }) {
 			{
 				typeof dayNumber === 'string' ? 
 					<div className="calendar-day-top">
-						<div className="day-number">{ dayNumber }</div>
+						<div className="day-number" id={ 'day-' + dayOfWeek }>{ dayNumber }</div>
 					</div>
 				 : 
 					<div className="calendar-day">
-						<div className="day-number">{ dayNumber }</div>
+						<div className="day-number" id={ String(year + month + dayNumber)  }>{ dayNumber }</div>
 						{
 							eventCount > 0 ? (
 								<div className="event-count">{ eventCount }</div>
@@ -59,10 +59,10 @@ export default function CalendarRow({ data, size = 'mini' }: CalendarRowProps) {
 	return (
 		<>
 		<div className={ `calendar-top-row-${ size }` }>
-			{ firstRowData.map((day, i) => <CalendarDay key={ String(day.year) + day.month + day.dayNumber + day.dayOfWeek + day.eventCount } day={ day }/>) }
+			{ firstRowData.map(day => <CalendarDay key={ String(day.year) + day.month + day.dayNumber + day.dayOfWeek + day.eventCount } day={ day }/>) }
 		</div>
 		<div className={ `calendar-row-${ size }` }>
-			{ data.map((day, i) => <CalendarDay key={ String(day.year) + day.month + day.dayNumber + day.dayOfWeek + day.eventCount } day={ day }/>) }
+			{ data.map(day => <CalendarDay key={ String(day.year) + day.month + day.dayNumber + day.dayOfWeek + day.eventCount } day={ day }/>) }
 		</div>
 		</>
 	)
