@@ -1,6 +1,11 @@
+export function twoDigits(num: number): string {
+	let str: string = String(num)
+	if (str.length == 1) str = '0' + str
+	return str
+}
 const calendarData: {[key: string]: any} = {}
 
-const startYear = 2025
+export const startYear = 2025
 const startDayOfWeek = 3
 
 const has30 = [4, 6, 9, 11]
@@ -25,15 +30,17 @@ class DayGenerator {
 		this.next()
 	}
 
-	twoDigits(num: number) {
-		let str: string = String(num)
-		if (str.length == 1) str = '0' + str
-		return str
-	}
 
 	addDay() {
-		const dataCode: string = String(this.day.year) + this.twoDigits(this.day.month) + this.twoDigits(this.day.day)
-		calendarData[dataCode] = this.day
+		const dataCode: string = String(this.day.year) + twoDigits(this.day.month) + twoDigits(this.day.day)
+		console.log(this.day)
+		console.log(dataCode)
+		calendarData[dataCode] = {
+			year: this.day.year,
+			month: this.day.month,
+			day: this.day.day,
+			dayOfWeek: this.day.dayOfWeek
+		}
 	}
 
 	next() {
@@ -56,7 +63,7 @@ class DayGenerator {
 		new DayGenerator(this.day.year, this.day.month, this.day.day, this.day.dayOfWeek)
 	}
 }
-
 new DayGenerator()
+console.log(calendarData)
 
 export { calendarData }

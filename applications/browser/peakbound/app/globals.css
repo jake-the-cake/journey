@@ -231,12 +231,27 @@ main {
 /* CALENDAR STYLES */
 
 .calendar {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	gap: 1px;
-	padding: 1px 2px;
-	background-color: var(--secondary-half);
+	grid-template-columns: repeat(7, 1fr);
+	padding: 1px;
+	background-color: var(--primary-tran);
 	box-shadow: 0 2px 5px -1px var(--dark);
+	border: 1px solid var(--primary);
+
+	.calendar-dayofweek {
+		background-color: var(--primary);
+		height: fit-content;
+		display: grid;
+		place-items: center;
+		font-weight: 600;
+		color: var(--light);
+	}
+}
+
+.mini {
+	width: 20rem;
+	font-size: .8rem;
 }
 
 .calendar-row-mini,
