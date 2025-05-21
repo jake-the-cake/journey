@@ -16,6 +16,7 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 		dayOfWeek: date.getDay(),
 		events: []
 	}
+	console.log(today)
 	const calendars: any = {}
 	let year = startYear
 	while (Object.values(calendarData).filter(val => val.year == year).length > 0) {

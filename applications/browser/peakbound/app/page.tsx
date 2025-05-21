@@ -1,5 +1,4 @@
 import Link from "next/link"
-import CalendarRow from "./_components/CalendarRow"
 import Calendar from "./_components/Calendar"
 
 export default function Home() {
