@@ -1,7 +1,7 @@
 import { CalendarDayData } from "../_types/calendar"
 
 export default function CalendarDay({ day }: { day: CalendarDayData }) {
-	const { dayNumber, eventCount, dayOfWeek, month, year } = day
+	const { dayNumber, events, dayOfWeek, month, year } = day
 	return (
 		<>
 			{
@@ -13,8 +13,8 @@ export default function CalendarDay({ day }: { day: CalendarDayData }) {
 					<div className="calendar-day">
 						<div className="day-number" id={ String(year + month + dayNumber)  }>{ dayNumber }</div>
 						{
-							eventCount > 0 ? (
-								<div className="event-count">{ eventCount }</div>
+							events.length > 0 ? (
+								<div className="event-count">{ events.length }</div>
 							) : (
 								<div className="event-count-none"></div>
 							)
