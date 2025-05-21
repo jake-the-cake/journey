@@ -1,3 +1,5 @@
+import { CalendarDayData } from "../_types/calendar"
+
 export function twoDigits(num: number): string {
 	let str: string = String(num)
 	if (str.length == 1) str = '0' + str
@@ -16,54 +18,46 @@ function febDayCount(year: number) {
 }
 
 class DayGenerator {
-	day: {
-		year: number
-		month: number
-		day: number
-		dayOfWeek: number
-	}
+	day: CalendarDayData
 
-	constructor(year = startYear, month = 1, day = 1, dayOfWeek = startDayOfWeek) {
-		this.day = { year, month, day, dayOfWeek }
+	constructor(year = startYear, month = 1, dayNumber = 1, dayOfWeek = startDayOfWeek) {
+		this.day = { year, month, dayNumber, dayOfWeek, events: [] }
 		if (year > 2026) return
 		this.addDay()
 		this.next()
 	}
 
-
 	addDay() {
-		const dataCode: string = String(this.day.year) + twoDigits(this.day.month) + twoDigits(this.day.day)
-		console.log(this.day)
-		console.log(dataCode)
+		const dataCode: string = String(this.day.year) + twoDigits(this.day.month) + twoDigits(this.day.dayNumber)
 		calendarData[dataCode] = {
 			year: this.day.year,
 			month: this.day.month,
-			day: this.day.day,
-			dayOfWeek: this.day.dayOfWeek
+			dayNumber: this.day.dayNumber,
+			dayOfWeek: this.day.dayOfWeek,
+			events: []
 		}
 	}
 
 	next() {
 		if (this.day.dayOfWeek == 6) this.day.dayOfWeek = 0
 		else this.day.dayOfWeek++
-		if (this.day.day < 28) this.day.day++
+		if (this.day.dayNumber < 28) this.day.dayNumber++
 		else if (
-			(has30.includes(this.day.month) && this.day.day == 30) || 
-			(has31.includes(this.day.month) && this.day.day == 31) || 
-			(this.day.month == 2 && this.day.day == febDayCount(this.day.year))
+			(has30.includes(this.day.month) && this.day.dayNumber == 30) || 
+			(has31.includes(this.day.month) && this.day.dayNumber == 31) || 
+			(this.day.month == 2 && this.day.dayNumber == febDayCount(this.day.year))
 		) {
-			this.day.day = 1
+			this.day.dayNumber = 1
 			if (this.day.month == 12) {
 				this.day.month = 1
 				this.day.year++
 			}
 			else this.day.month++
 		}
-		else this.day.day++
-		new DayGenerator(this.day.year, this.day.month, this.day.day, this.day.dayOfWeek)
+		else this.day.dayNumber++
+		new DayGenerator(this.day.year, this.day.month, this.day.dayNumber, this.day.dayOfWeek)
 	}
 }
 new DayGenerator()
-console.log(calendarData)
 
 export { calendarData }

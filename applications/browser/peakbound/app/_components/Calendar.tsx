@@ -1,4 +1,4 @@
-import { calendarData, startYear, twoDigits } from "../_data/calendar"
+import { calendarData, startYear } from "../_data/calendar"
 import { CalendarDayData, CalendarSizeOptions } from "../_types/calendar"
 
 const weekNames: {[key: string]: string[]} = {
@@ -7,14 +7,14 @@ const weekNames: {[key: string]: string[]} = {
 	mini: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 }
 
-console.log(new Date().getFullYear())
-
 export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions }) {
 	const date = new Date()
-	const today = {
+	const today: CalendarDayData = {
 		year: date.getFullYear(),
 		month: date.getMonth(),
-		day: date.getDate()
+		dayNumber: date.getDate(),
+		dayOfWeek: date.getDay(),
+		events: []
 	}
 	const calendars: any = {}
 	let year = startYear
@@ -36,7 +36,7 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 	return (
 		<div className={ `calendar ${ size }` }>
 			{ weekNames[size].map(name => (
-				<div className="calendar-dayofweek">
+				<div className="calendar-dayofweek" key={ 'day-' + name }>
 					<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
 				</div>
 			))}
