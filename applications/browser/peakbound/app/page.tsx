@@ -11,14 +11,22 @@ export default function Home() {
 			</div>
 			<div>
 				<h3>Upcoming Events</h3>
-				<div className="row-10">
+				<div className="row-10 flip-col">
 					<Calendar />
 					<div id='event-list'>
 						<Link href="schedule" className="box-link">Click Here To View The Full Schedule</Link>
 					</div>
 				</div>
 			</div>
-			<div>hi</div>
+			<div>
+				<h3>Join A Program</h3>
+			</div>
+			<div>
+				<h3>Recent Media</h3>
+			</div>
+			<div>
+				<h3>Support Our Mission</h3>
+			</div>
 		</main>
 	)
 }

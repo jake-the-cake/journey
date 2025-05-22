@@ -4,6 +4,7 @@ export interface CalendarDayData {
   month: number
   year: number
   events: any[]
+	isInactive: boolean
 }
 
 export type CalendarSizeOptions = 'full' | 'med' | 'mini'

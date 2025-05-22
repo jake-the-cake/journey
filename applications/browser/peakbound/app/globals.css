@@ -252,6 +252,27 @@ main {
 .mini {
 	width: 20rem;
 	font-size: .8rem;
+	 
+	.calendar-day {
+		padding: .1rem .2rem;
+		background-color: var(--secondary-dim);
+		color: var(--light);
+		transition: background .3s linear;
+		cursor: pointer;
+
+		&:hover {
+			background-color: var(--secondary);
+		}
+
+		&.inactive {
+			background-color: var(--primary-half);
+			color: var(--primary);
+
+			&:hover {
+				background-color: var(--primary-dim);
+			}
+		}
+	}
 }
 
 .calendar-row-mini,
@@ -263,9 +284,6 @@ main {
 	padding-inline: 2px;
 
 	.calendar-day {
-		padding: .1rem .2rem;
-		background-color: var(--primary);
-		color: var(--light);
 
 		&:hover {
 			cursor: pointer;
@@ -312,4 +330,18 @@ main {
 
 .calendar-top-row-mini {
 	background-color: var(--secondary);
+}
+
+@media (max-width: 600px) {
+	.flip-col-rev {
+		flex-direction: column-reverse;
+	}
+
+	.flip-col {
+		flex-direction: column;
+	}
+
+	.menu-bar ul {
+		font-size: .7rem;
+	}
 }
