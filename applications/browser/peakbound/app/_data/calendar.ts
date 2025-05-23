@@ -1,139 +1,170 @@
-import { CalendarDayData } from "../_types/calendar"
+import { CalendarDayData } from "../_types/calendar";
 
+/**
+ * Utility function to pad a number to two digits.
+ */
 function twoDigits(num: number): string {
-	let str: string = String(num)
-	if (str.length == 1) str = '0' + str
-	return str
+    return num.toString().padStart(2, '0');
 }
 
-const calendarDays: { [key: string]: CalendarDayData } = {}
+/**
+ * Helper arrays for month day counts.
+ */
+const MONTHS_WITH_30_DAYS = [4, 6, 9, 11];
+const MONTHS_WITH_31_DAYS = [1, 3, 5, 7, 8, 10, 12];
 
-const startYear = 2025
-const startDayOfWeek = 3
-
-const has30 = [4, 6, 9, 11]
-const has31 = [1, 3, 5, 7, 8, 10, 12]
-function febDayCount(year: number) {
-	if (year % 4 == 0) return 29
-	return 28
+/**
+ * Returns the number of days in February for a given year.
+ */
+function getFebruaryDays(year: number): number {
+    return year % 4 === 0 ? 29 : 28;
 }
 
-class DayGenerator {
-	day: CalendarDayData
+/**
+ * Generates all calendar days between startYear and endYear (inclusive).
+ */
+function generateCalendarDays(startYear: number, endYear: number, startDayOfWeek: number): Record<string, CalendarDayData> {
+    const calendarDays: Record<string, CalendarDayData> = {};
+    let year = startYear;
+    let month = 1;
+    let dayNumber = 1;
+    let dayOfWeek = startDayOfWeek;
 
-	constructor(year = startYear, month = 1, dayNumber = 1, dayOfWeek = startDayOfWeek) {
-		this.day = { year, month, dayNumber, dayOfWeek, events: [], isInactive: false }
-		if (year > 2026) return
-		this.addDay()
-		this.next()
-	}
+    while (year <= endYear) {
+        const dataCode = `${year}${twoDigits(month)}${twoDigits(dayNumber)}`;
+        calendarDays[dataCode] = {
+            year,
+            month,
+            dayNumber,
+            dayOfWeek,
+            events: [],
+            isInactive: false,
+        };
 
-	addDay() {
-		const dataCode: string = String(this.day.year) + twoDigits(this.day.month) + twoDigits(this.day.dayNumber)
-		calendarDays[dataCode] = {
-			year: this.day.year,
-			month: this.day.month,
-			dayNumber: this.day.dayNumber,
-			dayOfWeek: this.day.dayOfWeek,
-			events: [],
-			isInactive: false
-		}
-	}
+        // Advance to next day
+        dayOfWeek = (dayOfWeek + 1) % 7;
 
-	next() {
-		if (this.day.dayOfWeek == 6) this.day.dayOfWeek = 0
-		else this.day.dayOfWeek++
-		if (this.day.dayNumber < 28) this.day.dayNumber++
-		else if (
-			(has30.includes(this.day.month) && this.day.dayNumber == 30) || 
-			(has31.includes(this.day.month) && this.day.dayNumber == 31) || 
-			(this.day.month == 2 && this.day.dayNumber == febDayCount(this.day.year))
-		) {
-			this.day.dayNumber = 1
-			if (this.day.month == 12) {
-				this.day.month = 1
-				this.day.year++
-			}
-			else this.day.month++
-		}
-		else this.day.dayNumber++
-		new DayGenerator(this.day.year, this.day.month, this.day.dayNumber, this.day.dayOfWeek)
-	}
+        let daysInMonth = 31;
+        if (month === 2) {
+            daysInMonth = getFebruaryDays(year);
+        } else if (MONTHS_WITH_30_DAYS.includes(month)) {
+            daysInMonth = 30;
+        }
+
+        if (dayNumber < daysInMonth) {
+            dayNumber++;
+        } else {
+            dayNumber = 1;
+            if (month === 12) {
+                month = 1;
+                year++;
+            } else {
+                month++;
+            }
+        }
+    }
+
+    return calendarDays;
 }
 
-new DayGenerator()
+/**
+ * Organizes calendar days into a nested year->month->days structure.
+ */
+function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Record<string, Record<string, CalendarDayData[]>> {
+    const calendars: Record<string, Record<string, CalendarDayData[]>> = {};
+    Object.values(calendarDays).forEach(day => {
+        const yearKey = String(day.year);
+        const monthKey = String(day.month);
+        if (!calendars[yearKey]) calendars[yearKey] = {};
+        if (!calendars[yearKey][monthKey]) calendars[yearKey][monthKey] = [];
+        calendars[yearKey][monthKey].push(day);
+    });
+    return calendars;
+}
 
-const calendars: {
-		[key: string]: {
-			[key: string]: CalendarDayData[]
-		}
-	} = {}
-let year = startYear
-while (Object.values(calendarDays).filter(val => val.year == year).length > 0) {
-	const calendarYear = String(year)
-	if (Object.keys(calendars).includes(calendarYear)) {
-		for (let i = 1; i < 13; i++) {
-			calendars[calendarYear][i] = Object.values(calendarDays).filter(val => String(val.year) == calendarYear && val.month == i)
-		}
-		year++
-	}
-	else {
-		calendars[calendarYear] = {}
-	}
-}	
-
+/**
+ * Main CalendarData class for managing calendar state and logic.
+ */
 class CalendarData {
-	data: {
-		[key: string]: {
-			[key: string]: CalendarDayData[]
-		}
-	}
-	today!: CalendarDayData
-	visibleMonth!: number
-	visibleYear!: number
-	activeCalendar!: CalendarDayData[]
+    data: Record<string, Record<string, CalendarDayData[]>>;
+    today: CalendarDayData;
+    visibleMonth: number;
+    visibleYear: number;
+    activeCalendar: CalendarDayData[];
 
-	constructor() {
-		this.data = calendars
-		this.setToday()
-	}
+    constructor(startYear = 2025, endYear = 2026, startDayOfWeek = 3) {
+        const calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek);
+        this.data = organizeCalendarDays(calendarDays);
+        this.today = this.getToday();
+        this.visibleMonth = this.today.month;
+        this.visibleYear = this.today.year;
+        this.activeCalendar = [];
+        this.setActiveMonth(this.visibleMonth, this.visibleYear);
+    }
 
-	setToday() {
-		const date = new Date()
-		this.today = {
-			year: date.getFullYear(),
-			month: date.getMonth() + 1,
-			dayNumber: date.getDate(),
-			dayOfWeek: date.getDay(),
-			events: [],
-			isInactive: false
-		}
-		this.thisMonth()
-		this.changeMonth(6, 2026)
-	}
+    /**
+     * Returns today's date as a CalendarDayData object.
+     */
+    private getToday(): CalendarDayData {
+        const date = new Date();
+        return {
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            dayNumber: date.getDate(),
+            dayOfWeek: date.getDay(),
+            events: [],
+            isInactive: false,
+        };
+    }
 
-	thisMonth() {
-		this.visibleMonth = this.today.month
-		this.visibleYear = this.today.year
-	}
+    /**
+     * Sets the visible month and year to today.
+     */
+    setToCurrentMonth(): void {
+        this.visibleMonth = this.today.month;
+        this.visibleYear = this.today.year;
+        this.setActiveMonth(this.visibleMonth, this.visibleYear);
+    }
 
-	changeMonth(month: number, year: number) {
-		const data = this.data[String(year)][String(month)]
-		const firstDayOfMonth = data[0].dayOfWeek
-		const lastDayOfMonth = data[data.length - 1].dayOfWeek
-		const prev = this.data[String(year)][String(month - 1)]
-		const next = this.data[String(year)][String(month + 1)]
-		for (let i=0; i<firstDayOfMonth; i++) {
-			const item = prev[prev.length - i - 1]
-			item.isInactive = true
-			data.unshift(item)
-		}
-		for (let i=0; i<6-lastDayOfMonth; i++) {
-			next[i].isInactive = true
-			data.push(next[i])
-		}
-		this.activeCalendar = data
-	}
+    /**
+     * Changes the visible month and year, and updates the active calendar.
+     * Pads the calendar with inactive days from previous/next months as needed.
+     */
+    setActiveMonth(month: number, year: number): void {
+        const yearStr = String(year);
+        const monthStr = String(month);
+        const prevMonthStr = String(month - 1);
+        const nextMonthStr = String(month + 1);
+
+        const data = [...(this.data[yearStr]?.[monthStr] ?? [])];
+        if (data.length === 0) {
+            this.activeCalendar = [];
+            return;
+        }
+
+        const firstDayOfMonth = data[0].dayOfWeek;
+        const lastDayOfMonth = data[data.length - 1].dayOfWeek;
+
+        // Pad with previous month's days
+        const prev = this.data[yearStr]?.[prevMonthStr];
+        if (prev && firstDayOfMonth > 0) {
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const item = { ...prev[prev.length - i - 1], isInactive: true };
+                data.unshift(item);
+            }
+        }
+
+        // Pad with next month's days
+        const next = this.data[yearStr]?.[nextMonthStr];
+        if (next && lastDayOfMonth < 6) {
+            for (let i = 0; i < 6 - lastDayOfMonth; i++) {
+                const item = { ...next[i], isInactive: true };
+                data.push(item);
+            }
+        }
+
+        this.activeCalendar = data;
+    }
 }
 
-export { CalendarData }
+export { CalendarData };

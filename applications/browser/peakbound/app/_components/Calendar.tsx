@@ -20,7 +20,7 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 				</div>
 			))}
 			{ calendarData.activeCalendar.map(day => (
-				<CalendarDay day={ day } />
+				<CalendarDay key={ String(day.year) + day.month + day.dayNumber} day={ day } />
 			))}
 		</div>
 	)
