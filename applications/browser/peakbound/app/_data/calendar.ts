@@ -11,7 +11,6 @@ function twoDigits(num: number): string {
  * Helper arrays for month day counts.
  */
 const MONTHS_WITH_30_DAYS = [4, 6, 9, 11];
-const MONTHS_WITH_31_DAYS = [1, 3, 5, 7, 8, 10, 12];
 
 /**
  * Returns the number of days in February for a given year.
