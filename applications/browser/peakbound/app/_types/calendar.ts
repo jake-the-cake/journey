@@ -1,4 +1,5 @@
 export interface CalendarDayData {
+	id: string
   dayNumber: number
   dayOfWeek: number
   month: number

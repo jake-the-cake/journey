@@ -1,5 +1,6 @@
 import { CalendarData } from "../_data/calendar"
 import { CalendarSizeOptions } from "../_types/calendar"
+import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
 
 const weekNames: {[key: string]: string[]} = {
@@ -9,19 +10,27 @@ const weekNames: {[key: string]: string[]} = {
 }
 
 export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions }) {
-	const calendarData = new CalendarData()
-	console.log(calendarData)
+	const cal = new CalendarData()
+	cal.nextMonth()
+	cal.nextMonth()
 
 	return (
-		<div className={ `calendar ${ size }` }>
-			{ weekNames[size].map(name => (
-				<div className="calendar-dayofweek" key={ 'day-' + name }>
-					<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
-				</div>
-			))}
-			{ calendarData.activeCalendar.map(day => (
-				<CalendarDay key={ String(day.year) + day.month + day.dayNumber} day={ day } />
-			))}
+		<div className="calendar-container">
+			<div className="calendar-controls">
+				<SingleArrow id="prev-month" direction="left" />
+				{ cal.visibleMonth } { cal.visibleYear }
+				<SingleArrow id="prev-month" direction="right" />
+			</div>
+			<div className={ `calendar ${ size }` }>
+				{ weekNames[size].map(name => (
+					<div className="calendar-dayofweek" key={ 'day-' + name }>
+						<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
+					</div>
+				))}
+				{ cal.activeCalendar.map(day => (
+					<CalendarDay key={ day.id } day={ day } />
+				))}
+			</div>
 		</div>
 	)
 }
