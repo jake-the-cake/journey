@@ -254,16 +254,22 @@ main {
 		justify-content: space-between;
 		align-items: center;
 		width: 100%;
+
+		.calendar-label {
+			font-weight: 600;
+			letter-spacing: 2px;
+			font-style: italic;
+			text-align: center;
+		}
 	
 		#prev-month,
 		#next-month {
 			padding-inline: .5rem;
 			height: 10px;
-		
+			cursor: pointer;
 
 			path {
 				transition: fill .3s linear;
-				cursor: pointer;
 
 				&:hover {
 					fill: var(--secondary);

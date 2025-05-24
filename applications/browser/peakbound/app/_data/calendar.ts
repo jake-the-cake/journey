@@ -87,30 +87,57 @@ function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Re
 
 /**
  * Main CalendarData class for managing calendar state and logic.
- */
+*/
 class CalendarData {
 	data: Record<string, Record<string, CalendarDayData[]>>;
 	today: CalendarDayData;
 	visibleMonth: number;
 	visibleYear: number;
 	activeCalendar: CalendarDayData[];
+	miniStingMonth: string[] = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec'
+	]
+	fullStringMonth: string[] = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	]
 
 	constructor(startYear = 2025, endYear = 2026, startDayOfWeek = 3) {
-		const calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek);
-		this.data = organizeCalendarDays(calendarDays);
-		this.today = this.getToday();
-		console.log(this.today)
-		this.visibleMonth = this.today.month;
-		this.visibleYear = this.today.year;
-		this.activeCalendar = [];
-		this.setActiveMonth();
+		const calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
+		this.data = organizeCalendarDays(calendarDays)
+		this.today = this.getToday()
+		this.visibleMonth = this.today.month
+		this.visibleYear = this.today.year
+		this.activeCalendar = []
+		this.setActiveMonth()
 	}
 
 	/**
 	 * Returns today's date as a CalendarDayData object.
 	 */
 	private getToday(): CalendarDayData {
-		const date = new Date();
+		const date = new Date()
 		return this.data[String(date.getFullYear())][String(date.getMonth() + 1)][date.getDate() - 1]
 	}
 
@@ -118,9 +145,9 @@ class CalendarData {
 	 * Sets the visible month and year to today.
 	 */
 	setToCurrentMonth(): void {
-		this.visibleMonth = this.today.month;
-		this.visibleYear = this.today.year;
-		this.setActiveMonth();
+		this.visibleMonth = this.today.month
+		this.visibleYear = this.today.year
+		this.setActiveMonth()
 	}
 
 	/**
@@ -166,6 +193,32 @@ class CalendarData {
 		if (this.visibleMonth == 12) this.visibleYear++
 		this.visibleMonth = (this.visibleMonth + 1) % 12
 		this.setActiveMonth()
+	}
+
+	prevMonth() {
+		if (this.visibleMonth == 1) this.visibleYear--
+		this.visibleMonth = (this.visibleMonth + 11) % 12
+		this.setActiveMonth()
+	}
+
+	gotoMonth(month: number, year: number | undefined = undefined) {
+		this.visibleMonth = month
+		if (year) this.visibleYear = year
+		this.setActiveMonth()
+	}
+
+	gotoYear(year: number) {
+		this.visibleYear = year
+		this.setActiveMonth()
+	}
+
+	getStringMonth(size: string) {
+		const names: any = {
+			mini: this.miniStingMonth,
+			med: this.fullStringMonth,
+			full: this.fullStringMonth
+		}
+		return names[size][this.visibleMonth - 1]
 	}
 }
 

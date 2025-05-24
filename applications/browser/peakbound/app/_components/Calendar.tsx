@@ -1,3 +1,6 @@
+'use client'
+
+import { useRef, useState } from "react"
 import { CalendarData } from "../_data/calendar"
 import { CalendarSizeOptions } from "../_types/calendar"
 import SingleArrow from "../svg/SingleArrow"
@@ -10,16 +13,29 @@ const weekNames: {[key: string]: string[]} = {
 }
 
 export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions }) {
-	const cal = new CalendarData()
-	cal.nextMonth()
-	cal.nextMonth()
+	const calRef = useRef(new CalendarData())
+  const [_, forceUpdate] = useState(0) // Dummy state to trigger re-renders
+
+  const update = () => forceUpdate((prev: any) => prev + 1)
+
+  const handlePrevMonth = () => {
+    calRef.current.prevMonth()
+    update()
+  }
+
+  const handleNextMonth = () => {
+    calRef.current.nextMonth()
+    update()
+  }
 
 	return (
 		<div className="calendar-container">
 			<div className="calendar-controls">
-				<SingleArrow id="prev-month" direction="left" />
-				{ cal.visibleMonth } { cal.visibleYear }
-				<SingleArrow id="prev-month" direction="right" />
+				<SingleArrow id="prev-month" direction="left" onClick={ handlePrevMonth } />
+				<div className="calendar-label">
+					{ calRef.current.getStringMonth(size) } { calRef.current.visibleYear }
+				</div>
+				<SingleArrow id="next-month" direction="right" onClick={ handleNextMonth } />
 			</div>
 			<div className={ `calendar ${ size }` }>
 				{ weekNames[size].map(name => (
@@ -27,7 +43,7 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 						<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
 					</div>
 				))}
-				{ cal.activeCalendar.map(day => (
+				{ calRef.current.activeCalendar.map(day => (
 					<CalendarDay key={ day.id } day={ day } />
 				))}
 			</div>
