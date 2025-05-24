@@ -14,9 +14,9 @@ const weekNames: {[key: string]: string[]} = {
 
 export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions }) {
 	const calRef = useRef(new CalendarData())
-  const [_, forceUpdate] = useState(0) // Dummy state to trigger re-renders
+  const [_, forceUpdate] = useState<number>(0)
 
-  const update = () => forceUpdate((prev: any) => prev + 1)
+  const update = () => forceUpdate((prev: number) => prev + _)
 
   const handlePrevMonth = () => {
     calRef.current.prevMonth()
