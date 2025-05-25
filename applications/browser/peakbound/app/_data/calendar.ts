@@ -153,19 +153,20 @@ class CalendarData {
 	/**
 	 * Changes the visible month and year, and updates the active calendar.
 	 * Pads the calendar with inactive days from previous/next months as needed.
-	 */
+	*/
 	setActiveMonth(): void {
+		if (this.visibleMonth == 0) this.visibleMonth = 12
 		const yearStr = String(this.visibleYear)
 		const monthStr = String(this.visibleMonth)
-		const prevMonthStr = String(this.visibleMonth - 1)
-		const nextMonthStr = String(this.visibleMonth + 1)
+		const prevMonthStr = String((this.visibleMonth + 11) % 12 || 12)
+		const nextMonthStr = String((this.visibleMonth + 1) % 12 || 12)
 
 		const data = [...(this.data[yearStr]?.[monthStr] ?? [])]
 		if (data.length === 0) {
 			this.activeCalendar = []
 			return
 		}
-
+		
 		const firstDayOfMonth = data[0].dayOfWeek
 		const lastDayOfMonth = data[data.length - 1].dayOfWeek
 
@@ -192,6 +193,7 @@ class CalendarData {
 	nextMonth() {
 		if (this.visibleMonth == 12) this.visibleYear++
 		this.visibleMonth = (this.visibleMonth + 1) % 12
+		if (this.visibleMonth == 0) this.visibleMonth = 12
 		this.setActiveMonth()
 	}
 
@@ -222,4 +224,4 @@ class CalendarData {
 	}
 }
 
-export { CalendarData };
+export { CalendarData }

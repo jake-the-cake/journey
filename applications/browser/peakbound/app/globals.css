@@ -279,13 +279,18 @@ main {
 	}
 
 	.calendar {
-		display: grid;
-		gap: 1px;
-		grid-template-columns: repeat(7, 1fr);
 		padding: 1px;
 		background-color: var(--primary-tran);
 		border: 1px solid var(--primary);
-	
+		display: flex;
+		flex-direction: column;
+		
+		.calendar-content {
+			display: grid;
+			gap: 1px;
+			grid-template-columns: repeat(7, 1fr);
+		}
+
 		.calendar-dayofweek {
 			background-color: var(--primary);
 			height: fit-content;
