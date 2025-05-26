@@ -89,11 +89,13 @@ function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Re
  * Main CalendarData class for managing calendar state and logic.
 */
 class CalendarData {
-	data: Record<string, Record<string, CalendarDayData[]>>;
-	today: CalendarDayData;
-	visibleMonth: number;
-	visibleYear: number;
-	activeCalendar: CalendarDayData[];
+	data: Record<string, Record<string, CalendarDayData[]>>
+	today: CalendarDayData
+	visibleMonth: number
+	visibleYear: number
+	activeCalendar: CalendarDayData[]
+	outOfRangeMessage: string
+
 	miniStingMonth: string[] = [
 		'Jan',
 		'Feb',
@@ -108,6 +110,7 @@ class CalendarData {
 		'Nov',
 		'Dec'
 	]
+
 	fullStringMonth: string[] = [
 		'January',
 		'February',
@@ -123,8 +126,9 @@ class CalendarData {
 		'December'
 	]
 
-	constructor(startYear = 2025, endYear = 2026, startDayOfWeek = 3) {
+	constructor(startYear = 2025, endYear = 2027, startDayOfWeek = 3) {
 		const calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
+		this.outOfRangeMessage = `Calendar data is only available from ${startYear} to ${endYear}.`
 		this.data = organizeCalendarDays(calendarDays)
 		this.today = this.getToday()
 		this.visibleMonth = this.today.month

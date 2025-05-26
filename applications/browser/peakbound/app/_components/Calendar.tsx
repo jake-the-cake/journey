@@ -31,11 +31,12 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 						</div>
 					)) }
 				</div>
-				<div className="calendar-content">
-					{ cal.activeCalendar.map(day => (
-						<CalendarDay key={ day.id } day={ day } />
-					)) }
-				</div>
+				{ cal.activeCalendar.length === 0 ?
+					<div className="text-c italic p10">{ cal.outOfRangeMessage }</div> :
+					<div className="calendar-content">
+						{ cal.activeCalendar.map(day => <CalendarDay key={ day.id } day={ day } /> )}
+					</div>
+				}
 			</div>
 		</div>
 	)
