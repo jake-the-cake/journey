@@ -89,6 +89,7 @@ function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Re
  * Main CalendarData class for managing calendar state and logic.
 */
 class CalendarData {
+	calendarDays: Record<string, CalendarDayData>
 	data: Record<string, Record<string, CalendarDayData[]>>
 	today: CalendarDayData
 	visibleMonth: number
@@ -127,9 +128,9 @@ class CalendarData {
 	]
 
 	constructor(startYear = 2025, endYear = 2027, startDayOfWeek = 3) {
-		const calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
+		this.calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
 		this.outOfRangeMessage = `Calendar data is only available from ${startYear} to ${endYear}.`
-		this.data = organizeCalendarDays(calendarDays)
+		this.data = organizeCalendarDays(this.calendarDays)
 		this.today = this.getToday()
 		this.visibleMonth = this.today.month
 		this.visibleYear = this.today.year
@@ -225,6 +226,22 @@ class CalendarData {
 			full: this.fullStringMonth
 		}
 		return names[size][this.visibleMonth - 1]
+	}
+
+	getDaysByRange(startDate: string, endDate: string) {
+		const data = Object.entries(this.calendarDays).filter(day => Number(day[0]) >= Number(startDate) && Number(day[0]) <= Number(endDate))
+		return data
+	}
+
+	getEventsByRange(startDate: string, endDate: string) {
+		const days = this.getDaysByRange(startDate, endDate)
+		const events: Record<string, CalendarDayData> = {}
+		days.forEach(([key, value]) => {
+			if (value.events.length > 0) {
+				events[key] = value
+			}
+		})
+		return Object.entries(events)
 	}
 }
 

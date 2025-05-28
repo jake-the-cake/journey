@@ -305,7 +305,7 @@ main {
 	}
 	
 	.mini {
-		width: 20rem;
+		width: 16rem;
 		font-size: .8rem;
 		 
 		.calendar-day {
@@ -331,6 +331,42 @@ main {
 	}
 }
 
+/* EVENT PREVIEW STYLES */
+
+#event-preview-list {
+	display: flex;
+	flex-direction: column;
+	gap: .2rem;
+	align-items: center;
+
+	> div {
+		border-bottom: 1px solid var(--accent);
+		padding-bottom: .2rem;
+	}
+
+	.event-item-list {
+		display: flex;
+		flex-direction: column;
+		gap: .2rem;
+		width: 100%;
+
+		.event-item {
+			background-color: white;
+			border: 1px solid var(--primary);
+			font-size: .8rem;
+			padding: .2rem;
+
+			.event-title {
+				font-weight: 600;
+			}
+
+			.event-link a {
+				color: var(--secondary)
+			}
+		}
+	}
+}
+
 .event-count,
 .event-count-none {
 	background-color: var(--accent);
@@ -351,7 +387,7 @@ main {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 40rem) {
 	.flip-col-rev {
 		flex-direction: column-reverse;
 	}

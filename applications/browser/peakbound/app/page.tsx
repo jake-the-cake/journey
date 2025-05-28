@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Calendar from "./_components/Calendar"
 import { CalendarProvider } from "./_context/CalendarContext"
+import EventListPreview from "./_components/EventListPreview"
 
 export default function Home() {
 
@@ -15,11 +16,9 @@ export default function Home() {
 				<h3>Upcoming Events</h3>
 				<div className="row-10 flip-col">
 					<CalendarProvider>
-						<Calendar />
+						<Calendar size="mini" />
+						<EventListPreview />
 					</CalendarProvider>
-					<div id='event-list'>
-						<Link href="schedule" className="box-link">Click Here To View The Full Schedule</Link>
-					</div>
 				</div>
 			</div>
 			<div>
