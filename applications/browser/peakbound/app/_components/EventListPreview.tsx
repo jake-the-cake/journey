@@ -16,7 +16,7 @@ export default function EventListPreview() {
 					data.length > 0 ? (<>
 						{ data.map(([key, value]) => (
 							<div className="event-item" id={ key } key={ key }>
-								<div className="event-title">This event</div>
+								<div className="event-title">{ value.events[0].name }</div>
 								<div className="event-date">{ value.dayNumber} { value.month }, { value.year}</div>
 								<div className="event-location">This location</div>
 								<div className="event-link"><Link href="/">See More Info</Link></div>
@@ -26,7 +26,7 @@ export default function EventListPreview() {
 				}
 
 			</div>
-			<Link href="schedule" className="box-link">Click Here To View The Full Schedule</Link>
+			<Link href="schedule" className="event-link-normal text-c">View The Full Schedule</Link>
 		</div>
 	)
 }

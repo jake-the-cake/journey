@@ -187,6 +187,9 @@ main {
 .mb-10 {
 	margin-bottom: 1rem;
 }
+.m-auto {
+	margin: auto;
+}
 
 .italic {
 	font-style: italic;
@@ -336,12 +339,17 @@ main {
 #event-preview-list {
 	display: flex;
 	flex-direction: column;
-	gap: .2rem;
+	gap: .4rem;
 	align-items: center;
 
-	> div {
-		border-bottom: 1px solid var(--accent);
-		padding-bottom: .2rem;
+	.event-filter, .event-link-normal {
+		font-weight: 600;
+		font-size: .8rem;
+	}
+
+	.event-link-normal {
+		color: var(--secondary);
+		transition: color .3s linear;
 	}
 
 	.event-item-list {
@@ -351,10 +359,15 @@ main {
 		width: 100%;
 
 		.event-item {
-			background-color: white;
-			border: 1px solid var(--primary);
+			background-color: var(--accent-half);
 			font-size: .8rem;
 			padding: .2rem;
+			box-shadow: 0 1px 3px -1px var(--dark);
+
+			&:hover {
+				cursor: pointer;
+				background-color: var(--accent-dim);
+			}
 
 			.event-title {
 				font-weight: 600;

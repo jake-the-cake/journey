@@ -129,6 +129,7 @@ class CalendarData {
 
 	constructor(startYear = 2025, endYear = 2027, startDayOfWeek = 3) {
 		this.calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
+		this.createEvent()
 		this.outOfRangeMessage = `Calendar data is only available from ${startYear} to ${endYear}.`
 		this.data = organizeCalendarDays(this.calendarDays)
 		this.today = this.getToday()
@@ -136,6 +137,10 @@ class CalendarData {
 		this.visibleYear = this.today.year
 		this.activeCalendar = []
 		this.setActiveMonth()
+	}
+
+	createEvent() {
+		this.calendarDays['20260103'].events.push({name: 'Event'})
 	}
 
 	/**
