@@ -97,36 +97,6 @@ class CalendarData {
 	activeCalendar: CalendarDayData[]
 	outOfRangeMessage: string
 
-	miniStingMonth: string[] = [
-		'Jan',
-		'Feb',
-		'Mar',
-		'Apr',
-		'May',
-		'Jun',
-		'Jul',
-		'Aug',
-		'Sep',
-		'Oct',
-		'Nov',
-		'Dec'
-	]
-
-	fullStringMonth: string[] = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	]
-
 	constructor(startYear = 2025, endYear = 2027, startDayOfWeek = 3) {
 		this.calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
 		this.createEvent()
@@ -222,15 +192,6 @@ class CalendarData {
 	gotoYear(year: number) {
 		this.visibleYear = year
 		this.setActiveMonth()
-	}
-
-	getStringMonth(size: string) {
-		const names: any = {
-			mini: this.miniStingMonth,
-			med: this.fullStringMonth,
-			full: this.fullStringMonth
-		}
-		return names[size][this.visibleMonth - 1]
 	}
 
 	getDaysByRange(startDate: string, endDate: string) {

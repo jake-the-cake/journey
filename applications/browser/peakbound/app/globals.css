@@ -179,6 +179,10 @@ main {
 	align-items: center;
 	max-width: var(--max-width);
 	margin: auto;
+
+	h3 {
+		text-decoration: underline;
+	}
 }
 
 .p10 {
@@ -363,18 +367,51 @@ main {
 			font-size: .8rem;
 			padding: .2rem;
 			box-shadow: 0 1px 3px -1px var(--dark);
+			display: grid;
+			grid-template-columns: 1fr 3fr 1fr;
 
 			&:hover {
-				cursor: pointer;
 				background-color: var(--accent-dim);
 			}
 
-			.event-title {
+			.event-date {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 				font-weight: 600;
+				color: var(--secondary);
+
+				.month, .year {
+					font-size: .6rem;
+					text-transform: uppercase;
+				}
+
+				.day {
+					line-height: 1rem;
+					font-size: 1.6rem;
+				}
+			}
+
+			.event-details {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+
+				.event-title {
+					font-weight: 600;
+				}
+	
+				.event-location {
+					font-style: italic;
+				}
 			}
 
 			.event-link a {
-				color: var(--secondary)
+				font-size: .8rem;
+				color: var(--secondary);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 		}
 	}

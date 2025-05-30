@@ -1,7 +1,9 @@
 'use client'
 
-import Link from "next/link";
-import { useCalendar } from "../_context/CalendarContext";
+import Link from "next/link"
+import { useCalendar } from "../_context/CalendarContext"
+import { getMonthString } from "../_constants/calendar"
+import MoreInfo from "../svg/MoreInfo"
 
 export default function EventListPreview() {
 	const { cal } = useCalendar()
@@ -16,10 +18,21 @@ export default function EventListPreview() {
 					data.length > 0 ? (<>
 						{ data.map(([key, value]) => (
 							<div className="event-item" id={ key } key={ key }>
-								<div className="event-title">{ value.events[0].name }</div>
-								<div className="event-date">{ value.dayNumber} { value.month }, { value.year}</div>
-								<div className="event-location">This location</div>
-								<div className="event-link"><Link href="/">See More Info</Link></div>
+								<div className="event-date">
+									<div className="month">{ getMonthString(value.month, 'mini') }</div>
+									<div className="day">{ value.dayNumber }</div>
+									<div className="year">{ value.year }</div>
+									  </div>
+								<div className="event-details">
+									<div className="event-title">{ value.events[0].name }</div>
+									<div className="event-location">This location</div>
+								</div>
+								<div className="event-link">
+									<Link href="/">
+										<MoreInfo color="secondary" />
+										<span className="text-c">Info</span>
+									</Link>
+								</div>
 							</div>
 						)) }
 					</>) : <div className="event-item">No Events Found</div> 

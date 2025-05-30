@@ -4,6 +4,7 @@ import { CalendarSizeOptions } from "../_types/calendar"
 import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
 import { useCalendar } from "../_context/CalendarContext"
+import { getMonthString } from "../_constants/calendar"
 
 const weekNames: {[key: string]: string[]} = {
 	full: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -19,7 +20,7 @@ export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions
 			<div className="calendar-controls">
 				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
 				<div className="calendar-label">
-					{ cal.getStringMonth(size) } { cal.visibleYear }
+					{ getMonthString(cal.visibleMonth) } { cal.visibleYear }
 				</div>
 				<SingleArrow id="next-month" direction="right" onClick={ nextMonth } />
 			</div>
