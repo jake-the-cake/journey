@@ -1,5 +1,3 @@
-import Error from "next/error"
-
 const miniStingMonth: string[] = [
 	'Jan',
 	'Feb',

@@ -23,6 +23,12 @@ export default function Home() {
 			</div>
 			<div>
 				<h3>Join A Program</h3>
+				<ul>
+					<li>Stability</li>
+					<li>Performance</li>
+					<li>Endurance</li>
+					<li>Wellness</li>
+				</ul>
 			</div>
 			<div>
 				<h3>Recent Media</h3>
