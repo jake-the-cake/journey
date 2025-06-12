@@ -10,7 +10,8 @@
     "update": "npm uninstall shared && npm install ../../shared"
   },
   "dependencies": {
-    "next": "15.1.7",
+    "next": "^15.3.3",
+    "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "shared": "file:../../shared"

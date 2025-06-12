@@ -1,10 +1,11 @@
-'use client'
+// 'use client'
 
-import { CalendarSizeOptions } from "../_types/calendar"
 import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
-import { useCalendar } from "../_context/CalendarContext"
-import { getMonthString } from "../_constants/calendar"
+import { getMonthLabelShort } from "../../lib/datetime/month"
+import { useCalendar } from "@/features/calendar/context"
+import { CalendarData } from "@/features/calendar/class"
+import { DAY_LABELS_SHORT } from "@/features/calendar/constants"
 
 const weekNames: {[key: string]: string[]} = {
 	full: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -12,32 +13,35 @@ const weekNames: {[key: string]: string[]} = {
 	mini: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 }
 
-export default function Calendar({ size = 'mini' }: { size?: CalendarSizeOptions }) {
-	const { cal, nextMonth, prevMonth } = useCalendar()
+export default async function Calendar({ size = 'mini' }: { size?: any }) {
+	const cal = new CalendarData(2025, 2026, 3)
+	console.log(cal.data)
 
 	return (
 		<div className="calendar-container">
 			<div className="calendar-controls">
-				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
+				<SingleArrow id="prev-month" direction="left" />
 				<div className="calendar-label">
-					{ getMonthString(cal.visibleMonth) } { cal.visibleYear }
+					{ 'Month' } { 'Year' }
 				</div>
-				<SingleArrow id="next-month" direction="right" onClick={ nextMonth } />
+				<SingleArrow id="next-month" direction="right" />
 			</div>
 			<div className={ `calendar ${ size }` }>
 				<div className="calendar-content">
-					{ weekNames[size].map(name => (
+					{ DAY_LABELS_SHORT.map(name => (
 						<div className="calendar-dayofweek" key={ 'day-' + name }>
 							<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
 						</div>
 					)) }
 				</div>
-				{ cal.activeCalendar.length === 0 ?
-					<div className="text-c italic p10">{ cal.outOfRangeMessage }</div> :
+				{ /* calendar.activeCalendar.length === 0 ?
+					<div className="text-c italic p10">
+						{ calendar.outOfRangeMessage }
+					</div> :
 					<div className="calendar-content">
-						{ cal.activeCalendar.map(day => <CalendarDay key={ day.id } day={ day } /> )}
+						{ calendar.activeCalendar.map(day => <CalendarDay key={ day.id } day={ day } /> )}
 					</div>
-				}
+				*/ }
 			</div>
 		</div>
 	)

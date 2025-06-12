@@ -1,4 +1,7 @@
-import { CalendarDayData } from "../_types/calendar";
+import { createDateId } from "@/lib/datetime/code";
+import { MONTHS_WITH_30_DAYS } from "./constants";
+import { getFebruaryDayCount } from "./tools";
+import { CalendarDateDataType } from "./types";
 
 /**
  * Utility function to pad a number to two digits.
@@ -10,55 +13,51 @@ function twoDigits(num: number): string {
 /**
  * Helper arrays for month day counts.
  */
-const MONTHS_WITH_30_DAYS = [4, 6, 9, 11];
+
 
 /**
  * Returns the number of days in February for a given year.
  */
-function getFebruaryDays(year: number): number {
-	return year % 4 === 0 ? 29 : 28;
-}
 
-function createDateCode({year, month, dayNumber}: {year: number, month: number, dayNumber: number}): string {
-	return `${year}${twoDigits(month)}${twoDigits(dayNumber)}`
-}
+
+
 
 /**
  * Generates all calendar days between startYear and endYear (inclusive).
  */
-function generateCalendarDays(startYear: number, endYear: number, startDayOfWeek: number): Record<string, CalendarDayData> {
-	const calendarDays: Record<string, CalendarDayData> = {};
+function generateCalendarDays(startYear: number, endYear: number, startDayOfWeek: number): Record<string, CalendarDateDataType> {
+	const calendarDays: Record<string, CalendarDateDataType> = {};
 	let year = startYear;
 	let month = 1;
-	let dayNumber = 1;
+	let date = 1;
 	let dayOfWeek = startDayOfWeek;
 
 	while (year <= endYear) {
-		const dataCode: string = createDateCode({ year, month, dayNumber })
-		calendarDays[dataCode] = {
-			id: dataCode,
-			year,
-			month,
-			dayNumber,
-			dayOfWeek,
-			events: [],
-			isInactive: false,
-		}
+		const dataCode: string = createDateId({year, month, date})
+		// calendarDays[dataCode] = {
+		// 	id: dataCode,
+		// 	year,
+		// 	month,
+		// 	date,
+		// 	dayOfWeek,
+		// 	events: [],
+		// 	isInactive: false,
+		// }
 
 		// Advance to next day
 		dayOfWeek = (dayOfWeek + 1) % 7;
 
 		let daysInMonth = 31
 		if (month === 2) {
-			daysInMonth = getFebruaryDays(year)
+			daysInMonth = getFebruaryDayCount(year)
 		} else if (MONTHS_WITH_30_DAYS.includes(month)) {
 			daysInMonth = 30
 		}
 
-		if (dayNumber < daysInMonth) {
-			dayNumber++
+		if (date < daysInMonth) {
+			date++
 		} else {
-			dayNumber = 1
+			date = 1
 			if (month === 12) {
 				month = 1
 				year++
@@ -73,8 +72,8 @@ function generateCalendarDays(startYear: number, endYear: number, startDayOfWeek
 /**
  * Organizes calendar days into a nested year->month->days structure.
  */
-function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Record<string, Record<string, CalendarDayData[]>> {
-	const calendars: Record<string, Record<string, CalendarDayData[]>> = {};
+function organizeCalendarDays(calendarDays: Record<string, CalendarDateDataType>): Record<string, Record<string, CalendarDateDataType[]>> {
+	const calendars: Record<string, Record<string, CalendarDateDataType[]>> = {};
 	Object.values(calendarDays).forEach(day => {
 		const yearKey = String(day.year)
 		const monthKey = String(day.month)
@@ -89,13 +88,14 @@ function organizeCalendarDays(calendarDays: Record<string, CalendarDayData>): Re
  * Main CalendarData class for managing calendar state and logic.
 */
 class CalendarData {
-	calendarDays: Record<string, CalendarDayData>
-	data: Record<string, Record<string, CalendarDayData[]>>
-	today: CalendarDayData
+	calendarDays: Record<string, CalendarDateDataType>
+	data: Record<string, Record<string, CalendarDateDataType[]>>
+	today: CalendarDateDataType
 	visibleMonth: number
 	visibleYear: number
-	activeCalendar: CalendarDayData[]
+	activeCalendar: CalendarDateDataType[]
 	outOfRangeMessage: string
+	changeCurrentCalendar?: (name: string, args?: number[]) => void
 
 	constructor(startYear = 2025, endYear = 2027, startDayOfWeek = 3) {
 		this.calendarDays = generateCalendarDays(startYear, endYear, startDayOfWeek)
@@ -114,9 +114,9 @@ class CalendarData {
 	}
 
 	/**
-	 * Returns today's date as a CalendarDayData object.
+	 * Returns today's date as a CalendarDateDataType object.
 	 */
-	private getToday(): CalendarDayData {
+	private getToday(): CalendarDateDataType {
 		const date = new Date()
 		return this.data[String(date.getFullYear())][String(date.getMonth() + 1)][date.getDate() - 1]
 	}
@@ -201,7 +201,7 @@ class CalendarData {
 
 	getEventsByRange(startDate: string, endDate: string) {
 		const days = this.getDaysByRange(startDate, endDate)
-		const events: Record<string, CalendarDayData> = {}
+		const events: Record<string, CalendarDateDataType> = {}
 		days.forEach(([key, value]) => {
 			if (value.events.length > 0) {
 				events[key] = value

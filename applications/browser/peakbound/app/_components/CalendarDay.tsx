@@ -1,4 +1,4 @@
-import { CalendarDayData } from "../_types/calendar"
+import { CalendarDayData } from "../../features/calendar/types"
 
 export default function CalendarDay({ day }: { day: CalendarDayData }) {
 	const { dayNumber, events, month, year, isInactive } = day
