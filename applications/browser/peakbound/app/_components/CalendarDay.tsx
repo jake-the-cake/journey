@@ -1,15 +1,16 @@
-import { CalendarDayData } from "../../features/calendar/types"
+import { createDateId } from "@/lib/datetime/code"
+import { CalendarDateDataType } from "../../features/calendar/types"
 
-export default function CalendarDay({ day }: { day: CalendarDayData }) {
-	const { dayNumber, events, month, year, isInactive } = day
+export default function CalendarDay({ date, isInactive }: { date: CalendarDateDataType, isInactive: boolean }) {
+	const id = createDateId({
+		year: date.year,
+		month: date.month,
+		date: date.date
+	})
 	return (
-		<div className={ `calendar-day ${ isInactive && "inactive" }` }>
-			<div className="day-number" id={ String(year + month + dayNumber)  }>{ dayNumber }</div>
-			{
-				events.length > 0 && (
-					<div className="event-count">{ events.length }</div>
-				) 
-			}
+		<div className={ `calendar-day ${ isInactive && 'inactive' } }` }>
+			<div className="date-number" id={ id }>{ date.date }</div>
+			<div className="event-count">{ '0' }</div>
 		</div>
 	)
 }

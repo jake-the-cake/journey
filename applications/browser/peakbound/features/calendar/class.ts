@@ -1,5 +1,7 @@
 import { createDateId, getYearFromId } from '@/lib/datetime/code'
 import { getMonthDayCount, newMonth } from '@/lib/datetime/month'
+
+// imported types
 import { 
 	CalendarDataType, 
 	CalendarDateDataType, 
@@ -8,17 +10,28 @@ import {
 	CurrentDateDataType, 
 	DateCodeType
 } from './types'
-import { DAY_LABELS, DAY_LABELS_SHORT } from './constants'
+
+// imported constants
+import { 
+	CALENDAR_END_YEAR, 
+	CALENDAR_START_DAY_OF_WEEK, 
+	CALENDAR_START_YEAR, 
+	DAY_LABELS, 
+	DAY_LABELS_SHORT
+} from './constants'
 
 class CalendarData {
 
 	data: CalendarDataType
 	current!: CurrentDateDataType
 
-	constructor(startYear: number = 2025, endYear: number = 2027, startDayOfWeek: number = 3) {
+	constructor(
+		startYear: number = CALENDAR_START_YEAR, 
+		endYear: number = CALENDAR_END_YEAR, 
+		startDayOfWeek: number = CALENDAR_START_DAY_OF_WEEK
+	) {
 		this.data = this.generateCalendarData(startYear, endYear, startDayOfWeek)
-		this.resetCurrent()
-		
+		this.resetCurrent()	
 	}
 	
 	resetCurrent(): void {
@@ -33,7 +46,40 @@ class CalendarData {
 		this.resetCurrent()
 		this.current.year = year
 		this.current.month = this.data[year][month]
+		this.current.month.dates.unshift(...this.getPrevMonthDates(this.current.month.startDay))
+		this.current.month.dates.push(...this.getNextMonthDates(6 - this.current.month.endDay))
 		if (date) this.current.date = this.current.month.dates[date - 1]
+	}
+
+	getPrevMonthDates(count: number): CalendarDateDataType[] {
+		const dates = this.getPrevMonthData().dates
+		return dates.slice(dates.length - count)
+	}
+
+	getPrevMonthData(): CalendarMonthDataType {
+		let year = this.current.year!
+		const month = ((this.current.month!.month + 11) % 12) || 12
+		if (month === 12) year--
+		if (!this.data[year]) {
+			const data = newMonth(year, month, (this.current.month!.startDay - 31) % 7)
+			return this.addMonthData(data, data.startDay)[0]
+		}
+		return this.data[year][month]
+	}
+
+	getNextMonthDates(count: number): CalendarDateDataType[] {
+		return this.getNextMonthData().dates.slice(0, count)
+	}
+
+	getNextMonthData(): CalendarMonthDataType {
+		let year = this.current.year!
+		const month = ((this.current.month!.month + 1) % 12) || 12
+		if (month === 1) year++
+		if (!this.data[year]) {
+			const data = newMonth(year, month, (this.current.month!.endDay + 31) % 7)
+			return this.addMonthData(data, data.startDay)[0]	
+		}
+		return this.data[year][month]
 	}
 
 	getMonth(): number {

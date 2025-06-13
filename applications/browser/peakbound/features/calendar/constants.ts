@@ -56,7 +56,8 @@ const DAY_LABELS_DICT: LabelListDictionaryType = {
 
 // Start year and day of the week for the calendar (0[Sunday] to 6[Saturday])
 const CALENDAR_START_YEAR:        number = 2025
-const CALENDAR_START_DAT_OF_WEEK: number = 3
+const CALENDAR_END_YEAR:        number = 2028
+const CALENDAR_START_DAY_OF_WEEK: number = 3
 
 // Month numbers with 30 days
 const MONTHS_WITH_30_DAYS: number[] = [4, 6, 9, 11]
@@ -74,5 +75,6 @@ export {
 	DAY_LABELS,
 	DAY_LABELS_SHORT,
 	CALENDAR_START_YEAR,
-	CALENDAR_START_DAT_OF_WEEK
+	CALENDAR_END_YEAR,
+	CALENDAR_START_DAY_OF_WEEK
 }
