@@ -23,7 +23,6 @@ class CalendarData {
 		return createMonthId({ year: date.getFullYear(), month: date.getMonth() + 1 })
 	}
 
-	// setters
 	populateData(): CalendarDataType {
 		const data: CalendarDataType = {}
 		for (let i = CALENDAR_START_YEAR; i <= CALENDAR_END_YEAR; i++) {
@@ -34,7 +33,8 @@ class CalendarData {
 		}
 		return data
 	}
-
+	
+	// setters
 	switchMonth(id: string): void {
 		this.current = id
 	}

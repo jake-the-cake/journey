@@ -3,12 +3,11 @@
 import { useCalendar } from "@/features/calendar/context"
 import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
-// import { CalendarData } from "@/features/calendar/data"
-import { DAY_LABELS_SHORT } from "@/features/calendar/constants"
+import { DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
+import { getMonthFromId, getYearFromId } from "@/lib/datetime/code"
 
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
-	// const cal = new CalendarData()
 	const { calendar, prevMonth, nextMonth } = useCalendar()
 
 	return (
@@ -16,7 +15,7 @@ export default function Calendar({ size = 'mini' }: { size?: any }) {
 			<div className="calendar-controls">
 				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
 				<div className="calendar-label">
-					{ calendar.getMonthLabelShort() } { calendar.getYear() }
+					{ MONTH_LABELS_SHORT[getMonthFromId(calendar.current)! - 1] } { getYearFromId(calendar.current) }
 				</div>
 				<SingleArrow id="next-month" direction="right" onClick={ nextMonth } />
 			</div>

@@ -36,7 +36,7 @@ export default function EventListPreview() {
 								</div>
 							</div>
 						)) }
-					</>) : <div className="event-item">No Events Found</div> 
+					</>) : <div className="event-item none p10">No Events Found</div> 
 				}
 
 			</div>

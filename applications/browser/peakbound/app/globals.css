@@ -211,7 +211,7 @@ section {
 }
 
 .p10 {
-	padding: 1rem;
+	padding: 1rem !important;
 }
 .mb-10 {
 	margin-bottom: 1rem !important;
@@ -366,17 +366,24 @@ section {
 
 	.event-item-list {
 		display: flex;
-		flex-direction: column;
-		gap: .2rem;
+		flex-wrap: wrap;
+		/* flex-direction: column; */
+		gap: .6rem;
 		width: 100%;
 
 		.event-item {
+			flex: 1 1 33%;
+			min-width: 260px;
 			background-color: var(--accent-half);
 			font-size: .8rem;
 			padding: .2rem;
 			box-shadow: 0 1px 3px -1px var(--dark);
 			display: grid;
 			grid-template-columns: 1fr 3fr 1fr;
+
+			&.none {
+				display: inline;
+			}
 
 			&:hover {
 				background-color: var(--accent-dim);
