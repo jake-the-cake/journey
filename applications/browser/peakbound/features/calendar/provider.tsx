@@ -6,22 +6,8 @@ import { CalendarContext } from "@/features/calendar/context"
 export function CalendarProvider({ children }: { children: ReactNode }) {
 	const [context, setContext] = useState<any>({})
 	useEffect(() => {
-		// publicCalendar().then(data => {
-		// 	const calendar = useRef<CalendarData | null>(data)
-		// 	calendar.current!.changeCurrentCalendar = changeCurrentCalendar
-		// 	setContext((prev: any) => ({ ...prev, calendar }))
-		// })
+		setContext({})
 	}, [])
-
-	function changeCurrentCalendar(name: string, args: number[] = []) {
-		return function() {
-			if (!context.calendar)	throw new Error('Calendar data is not loaded yet')
-			if (Object.keys(context.calendar).includes(name)) {
-				context.calendar[name](...args)
-			} 
-			else throw new Error(`Function ${ name } does not exist on CalendarData`)
-		}
-	}
   
 	// const nextMonth = () => {
 	// 	ref.current.nextMonth()

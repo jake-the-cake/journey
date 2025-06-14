@@ -22,7 +22,7 @@ class CalendarMonth {
 	startDay: number
 	endDay: number
 	dates: CalendarDateDataType[]
-	extendedDates: CalendarDateDataType[] = []
+	extendedDates!: CalendarDateDataType[]
 	data: CalendarMonthDataType
 
 	constructor(id: string, extend: boolean = false) {

@@ -5,9 +5,8 @@ import { DAY_LABELS_SHORT } from "@/features/calendar/constants"
 
 
 export default async function Calendar({ size = 'mini' }: { size?: any }) {
-	const cal = new CalendarData('202403')
+	const cal = new CalendarData('202503')
 	console.log(cal.currentData().data)
-	cal.getDate()
 
 	return (
 		<div className="calendar-container">

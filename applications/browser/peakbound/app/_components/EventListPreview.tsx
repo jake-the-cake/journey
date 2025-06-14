@@ -1,25 +1,24 @@
 'use client'
 
 import Link from "next/link"
-// import { useCalendar } from "../../context/CalendarContext"
-import { getMonthString } from "../../lib/datetime/month"
 import MoreInfo from "../svg/MoreInfo"
+import { useCalendar } from "@/features/calendar/context"
 
 export default function EventListPreview() {
-	// const { calendar } = useCalendar()
-	// const data = calendar.getEventsByRange('20260101','20260131')
+	const { calendar } = useCalendar()
+	const data = (calendar as any)?.currentData().dates ?? []
 	return (
 		<div id='event-preview-list'>
 			<div className="event-filter">
 				Next 2 Weeks
 			</div>
 			<div className="event-item-list">
-				{/*
+				{
 					data.length > 0 ? (<>
-						{ data.map(([key, value]) => (
+						{ data.map(([key, value]: any) => (
 							<div className="event-item" id={ key } key={ key }>
 								<div className="event-date">
-									<div className="month">{ getMonthString(value.month, 'mini') }</div>
+									<div className="month">Month</div>
 									<div className="day">{ value.dayNumber }</div>
 									<div className="year">{ value.year }</div>
 									  </div>
@@ -36,7 +35,7 @@ export default function EventListPreview() {
 							</div>
 						)) }
 					</>) : <div className="event-item">No Events Found</div> 
-				*/}
+				}
 
 			</div>
 			<Link href="schedule" className="event-link-normal text-c">View The Full Schedule</Link>

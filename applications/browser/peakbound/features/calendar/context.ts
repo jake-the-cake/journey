@@ -1,11 +1,11 @@
 'use client'
 
-import { CalendarData } from '@/features/calendar/preload'
 import { createContext, useContext } from 'react'
+import { CalendarDataType } from './types'
 
 type CalendarContextType = {
 	// events: EventData[]
-	calendar: CalendarData
+	calendar: CalendarDataType
 	changeCurrentCalendar: (name: string, args?: number[]) => void
 }
 
