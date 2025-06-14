@@ -1,23 +1,24 @@
 'use client'
 
-import { ReactNode, useEffect, useRef, useState } from "react"
+import { ReactNode, useRef, useState } from "react"
+import { CalendarData } from "./data"
 import { CalendarContext } from "@/features/calendar/context"
 
 export function CalendarProvider({ children }: { children: ReactNode }) {
-	const [context, setContext] = useState<any>({})
-	useEffect(() => {
-		setContext({})
-	}, [])
-  
-	// const nextMonth = () => {
-	// 	ref.current.nextMonth()
-	// 	forceUpdate()
-  // }
+  const calendarRef = useRef<CalendarData>(new CalendarData())
+  const [, setVersion] = useState(0)
+  const forceUpdate = () => setVersion(v => v + 1)
 
-  // const prevMonth = () => {
-	// 	ref.current.prevMonth()
-	// 	forceUpdate()
-  // }
+	const prevMonth = () => {
+		calendarRef.current.goToPrevMonth()
+		forceUpdate()
+	}
+
+  const nextMonth = () => {
+    calendarRef.current.goToNextMonth()
+    forceUpdate()
+  }
+
 	
 	// const nextYear = () => {
 	// 	ref.current.nextYear()
@@ -39,15 +40,14 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
 	// 	forceUpdate()
 	// }
 
-	// Create a context value with the calendar data and navigation methods
-	// const ctxValue: CalendarContextType = {
-	// 	calendar: ref as any,
-	// 	changeCurrentCalendar
-	// }
+	const ctxValue = {
+		calendar: calendarRef.current,
+		nextMonth,
+		prevMonth
+	}
 
-	// Provide the context value to children components
 	return (
-			<CalendarContext.Provider value={ context }>
+			<CalendarContext.Provider value={ ctxValue }>
 				{children}
 			</CalendarContext.Provider>
 		)

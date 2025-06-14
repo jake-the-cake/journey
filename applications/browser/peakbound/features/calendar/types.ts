@@ -8,6 +8,8 @@ export interface CalendarDateDataType {
 	weekdayLabelShort: string
 }
 
+export type CalendarDateDataTypeExtended = CalendarDateDataType & { data?: CalendarDateDataType }
+
 export interface CalendarMonthDataType {
 	id: string
 	year: number
@@ -20,6 +22,8 @@ export interface CalendarMonthDataType {
 	dates: CalendarDateDataType[]
 	extendedDates: CalendarDateDataType[]
 }
+
+export type CalendarMonthDataTypeExtended = CalendarMonthDataType & { data?: CalendarMonthDataType }
 
 export interface CalendarDataType {
 	[key: string]: CalendarMonthDataType

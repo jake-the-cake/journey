@@ -3,10 +3,12 @@
 import Link from "next/link"
 import MoreInfo from "../svg/MoreInfo"
 import { useCalendar } from "@/features/calendar/context"
+import { CalendarDateDataType } from "@/features/calendar/types"
+import { MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 
 export default function EventListPreview() {
 	const { calendar } = useCalendar()
-	const data = (calendar as any)?.currentData().dates ?? []
+	const data = (calendar as any)?.currentMonth().dates ?? []
 	return (
 		<div id='event-preview-list'>
 			<div className="event-filter">
@@ -15,15 +17,15 @@ export default function EventListPreview() {
 			<div className="event-item-list">
 				{
 					data.length > 0 ? (<>
-						{ data.map(([key, value]: any) => (
-							<div className="event-item" id={ key } key={ key }>
+						{ data.map((d: CalendarDateDataType) => (
+							<div className="event-item" id={ d.id } key={ d.id }>
 								<div className="event-date">
-									<div className="month">Month</div>
-									<div className="day">{ value.dayNumber }</div>
-									<div className="year">{ value.year }</div>
+									<div className="month">{ MONTH_LABELS_SHORT[d.month - 1] }</div>
+									<div className="date">{ d.date }</div>
+									<div className="year">{ d.year }</div>
 									  </div>
 								<div className="event-details">
-									<div className="event-title">{ value.events[0].name }</div>
+									<div className="event-title">n/a</div>
 									<div className="event-location">This location</div>
 								</div>
 								<div className="event-link">
