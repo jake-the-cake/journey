@@ -1,5 +1,3 @@
-// export type CalendarLabelSizeOptions = 'long' | 'short'
-
 export interface CalendarDateDataType {
 	id: string
 	year: number
@@ -22,12 +20,8 @@ export interface CalendarMonthDataType {
 	dates: CalendarDateDataType[]
 }
 
-export interface CalendarYearDataType {
-	[key: string]: CalendarMonthDataType
-}
-
 export interface CalendarDataType {
-	[key: string]: CalendarYearDataType
+	[key: string]: CalendarMonthDataType
 }
 
 export interface MonthLabelsType {

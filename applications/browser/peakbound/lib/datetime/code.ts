@@ -25,6 +25,10 @@ function parseCalendarId(id: string): DateCodeType {
 	return dateInfo
 }
 
+function getMonthIdFromDateId(id: string): string {
+	return id.slice(0, 6)
+}
+
 function getYearFromId(id: string): number | null {
 	return parseCalendarId(id).year
 }
@@ -51,6 +55,7 @@ export {
 	createDateId,
 	createMonthId,
 	getDateNumberFromId,
+	getMonthIdFromDateId,
 	getMonthFromId,
 	getYearFromId,
 	getYearAndMonthFromId,
