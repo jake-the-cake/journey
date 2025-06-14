@@ -37,7 +37,7 @@ function getMonthFromId(id: string): number | null {
 	return parseCalendarId(id).month
 }
 
-function getDateNumberFromId(id: string): number | null {
+function getDateFromId(id: string): number | null {
 	return parseCalendarId(id).date!
 }
 
@@ -51,13 +51,29 @@ function getMonthAndDateFromId(id: string): Partial<DateCodeType> {
 	return { month, date }
 }
 
+function getPrevMonthIdFromId(id: string): string {
+	let { year, month } = parseCalendarId(id)
+	if (month === 1) year!--
+	month = ((month! + 11) % 12) || 12
+	return createMonthId({ year, month })
+}
+
+function getNextMonthIdFromId(id: string): string {
+	let { year, month } = parseCalendarId(id)
+	if (month === 12) year!++
+	month = ((month! + 1) % 12) || 12
+	return createMonthId({ year, month })
+}
+
 export {
 	createDateId,
 	createMonthId,
-	getDateNumberFromId,
 	getMonthIdFromDateId,
+	getDateFromId,
 	getMonthFromId,
 	getYearFromId,
 	getYearAndMonthFromId,
-	getMonthAndDateFromId
+	getMonthAndDateFromId,
+	getPrevMonthIdFromId,
+	getNextMonthIdFromId
 }

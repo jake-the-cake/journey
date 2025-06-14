@@ -1,10 +1,12 @@
-import { createDateId, getYearAndMonthFromId } from "./code"
+import { createDateId, getNextMonthIdFromId, getPrevMonthIdFromId, getYearAndMonthFromId } from "./code"
 import { 
 	CalendarDateDataType,
 	CalendarMonthDataType, 
 	MonthLabelsType 
 } from "@/features/calendar/types"
 import { 
+	CALENDAR_END_YEAR,
+	CALENDAR_START_YEAR,
 	MONTH_LABELS, 
 	MONTH_LABELS_SHORT, 
 	MONTHS_WITH_30_DAYS 
@@ -20,8 +22,10 @@ class CalendarMonth {
 	startDay: number
 	endDay: number
 	dates: CalendarDateDataType[]
+	extendedDates: CalendarDateDataType[] = []
+	data: CalendarMonthDataType
 
-	constructor(id: string) {
+	constructor(id: string, extend: boolean = false) {
 		const { year, month } = getYearAndMonthFromId(id)
 		if (!year || !month ) throw SyntaxError('Missing required information.')
 		this.id = id
@@ -32,24 +36,32 @@ class CalendarMonth {
 		this.monthLabelShort = this.getLabels().monthLabelShort
 		this.startDay = new Date(this.year, this.month - 1, 1).getDay()
 		this.endDay = (this.startDay + this.dayCount - 1) % 7
-		this.dates = [] 
+		this.dates = []
 		this.setDates()
-		console.log(this.dates)
+		if (extend) this.extendedDates = this.setExtendedDates()
+		this.data = this.getData()
+	}
+
+	setExtendedDates(): CalendarDateDataType[] {
+		const prevDates = new CalendarMonth(getPrevMonthIdFromId(this.id)).dates
+		const prev = prevDates.slice(prevDates.length - this.startDay)
+		const next = new CalendarMonth(getNextMonthIdFromId(this.id)).dates.slice(0, 6 - this.endDay)
+		return [...prev, ...this.dates, ...next]
 	}
 
 	setDates(): void {
-		let nextDay = this.startDay
+		let day = this.startDay
 		for (let i = 1; i <= this.dayCount; i++) {
 			this.dates.push({
 				id: createDateId({ ...getYearAndMonthFromId(this.id), date: i }),
 				year: this.year,
 				month: this.month,
 				date: i,
-				day: nextDay,
+				day,
 				weekdayLabel: '',
 				weekdayLabelShort: ''
 			})
-			nextDay = (nextDay + 1) % 7
+			day = (day + 1) % 7
 		}
 	}
 
@@ -69,7 +81,7 @@ class CalendarMonth {
 		}
 	}
 
-	data(): CalendarMonthDataType {
+	getData(): CalendarMonthDataType {
 		return {
 			id: this.id,
 			year: this.year,
@@ -79,7 +91,8 @@ class CalendarMonth {
 			monthLabelShort: this.monthLabelShort,
 			startDay: this.startDay,
 			endDay: this.endDay,
-			dates: this.dates
+			dates: this.dates,
+			extendedDates: this.extendedDates
 		}
 	}
 }

@@ -18,6 +18,7 @@ export interface CalendarMonthDataType {
 	startDay: number
 	endDay: number
 	dates: CalendarDateDataType[]
+	extendedDates: CalendarDateDataType[]
 }
 
 export interface CalendarDataType {

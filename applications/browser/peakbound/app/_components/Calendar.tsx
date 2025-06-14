@@ -5,7 +5,8 @@ import { DAY_LABELS_SHORT } from "@/features/calendar/constants"
 
 
 export default async function Calendar({ size = 'mini' }: { size?: any }) {
-	const cal = new CalendarData('202802')
+	const cal = new CalendarData('202403')
+	console.log(cal.currentData().data)
 	cal.getDate()
 
 	return (
@@ -30,7 +31,7 @@ export default async function Calendar({ size = 'mini' }: { size?: any }) {
 						Out Of Range
 					</div> :
 					<div className="calendar-content">
-						{ cal.currentData().dates.map(day => <CalendarDay key={ day.id } date={ day } isInactive={ cal.getMonth() !== day.month } /> )}
+						{ cal.currentData().extendedDates.map(day => <CalendarDay key={ day.id } date={ day } isInactive={ cal.getMonth() !== day.month } /> )}
 					</div>
 				}
 			</div>

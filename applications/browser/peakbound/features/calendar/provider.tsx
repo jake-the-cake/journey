@@ -1,18 +1,16 @@
 'use client'
 
 import { ReactNode, useEffect, useRef, useState } from "react"
-import { publicCalendar } from "./read"
 import { CalendarContext } from "@/features/calendar/context"
-import { CalendarData } from "@/features/calendar/preload"
 
 export function CalendarProvider({ children }: { children: ReactNode }) {
 	const [context, setContext] = useState<any>({})
 	useEffect(() => {
-		publicCalendar().then(data => {
-			const calendar = useRef<CalendarData | null>(data)
-			calendar.current!.changeCurrentCalendar = changeCurrentCalendar
-			setContext((prev: any) => ({ ...prev, calendar }))
-		})
+		// publicCalendar().then(data => {
+		// 	const calendar = useRef<CalendarData | null>(data)
+		// 	calendar.current!.changeCurrentCalendar = changeCurrentCalendar
+		// 	setContext((prev: any) => ({ ...prev, calendar }))
+		// })
 	}, [])
 
 	function changeCurrentCalendar(name: string, args: number[] = []) {
