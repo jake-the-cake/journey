@@ -3,6 +3,7 @@
 import { ReactNode, useRef, useState } from "react"
 import { CalendarData } from "./data"
 import { CalendarContext } from "@/features/calendar/context"
+import { createMonthId, getMonthFromId, getYearFromId } from "@/lib/datetime/code"
 
 export function CalendarProvider({ children }: { children: ReactNode }) {
   const calendarRef = useRef<CalendarData>(new CalendarData())
@@ -18,32 +19,38 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     calendarRef.current.goToNextMonth()
     forceUpdate()
   }
+	
+	const prevYear = () => {
+		calendarRef.current.goToPrevYear()
+		forceUpdate()
+	}
 
+	const nextYear = () => {
+		calendarRef.current.goToNextYear()
+		forceUpdate()
+	}
 	
-	// const nextYear = () => {
-	// 	ref.current.nextYear()
-	// 	forceUpdate()
-	// }
+	const goToMonth = (e: any) => {
+		const year = getYearFromId(calendarRef.current.current)
+		calendarRef.current.switchMonth(createMonthId({ year, month: Number(e.target.value) }))
+		forceUpdate()
+	}
 	
-	// const prevYear = () => {
-	// 	ref.current.prevYear()
-	// 	forceUpdate()
-	// }
-	
-	// const gotoMonth = (month: number, year?: number) => {
-	// 	ref.current.gotoMonth(month, year)
-	// 	forceUpdate()
-	// }
-	
-	// const gotoYear = (year: number) => {
-	// 	ref.current.gotoYear(year)
-	// 	forceUpdate()
-	// }
+	const goToYear = (e: any) => {
+		const month = getMonthFromId(calendarRef.current.current)
+		calendarRef.current.switchMonth(createMonthId({ year: e.target.value, month }))
+		console.log(calendarRef.current.current)
+		forceUpdate()
+	}
 
 	const ctxValue = {
 		calendar: calendarRef.current,
 		nextMonth,
-		prevMonth
+		prevMonth,
+		prevYear,
+		nextYear,
+		goToMonth,
+		goToYear
 	}
 
 	return (

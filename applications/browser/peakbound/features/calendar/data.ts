@@ -3,7 +3,9 @@ import {
 	createMonthId, 
 	getMonthIdFromDateId, 
 	getNextMonthIdFromId, 
-	getPrevMonthIdFromId 
+	getNextYearMonthIdFromID, 
+	getPrevMonthIdFromId, 
+	getPrevYearMonthIdFromID
 } from '@/lib/datetime/code'
 import { CalendarDataType, CalendarMonthDataTypeExtended } from './types'
 import { CALENDAR_END_YEAR, CALENDAR_START_YEAR } from './constants'
@@ -47,7 +49,16 @@ class CalendarData {
 
 	goToNextMonth(): CalendarMonthDataTypeExtended {
 		this.switchMonth(getNextMonthIdFromId(this.current))
-		console.log(this.currentMonth())
+		return this.currentMonth()
+	}
+
+	goToPrevYear(): CalendarMonthDataTypeExtended {
+		this.switchMonth(getPrevYearMonthIdFromID(this.current))
+		return this.currentMonth()
+	}
+
+	goToNextYear(): CalendarMonthDataTypeExtended {
+		this.switchMonth(getNextYearMonthIdFromID(this.current))
 		return this.currentMonth()
 	}
 

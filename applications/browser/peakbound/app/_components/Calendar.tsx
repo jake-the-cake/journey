@@ -3,20 +3,41 @@
 import { useCalendar } from "@/features/calendar/context"
 import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
-import { DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
+import { CALENDAR_END_YEAR, CALENDAR_START_YEAR, DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 import { getMonthFromId, getYearFromId } from "@/lib/datetime/code"
+import DoubleArrow from "../svg/DoubleArrow"
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
-	const { calendar, prevMonth, nextMonth } = useCalendar()
+	const { calendar, prevMonth, nextMonth, prevYear, nextYear, goToMonth, goToYear } = useCalendar()
+	let YEARS: any = []
+	for (let i = CALENDAR_START_YEAR; i <= CALENDAR_END_YEAR; i++) {
+		YEARS.push(i)
+	}
 
 	return (
 		<div className="calendar-container">
 			<div className="calendar-controls">
+				<DoubleArrow id="prev-month" direction="left" onClick={ prevYear } />
 				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
 				<div className="calendar-label">
-					{ MONTH_LABELS_SHORT[getMonthFromId(calendar.current)! - 1] } { getYearFromId(calendar.current) }
+					<select name="calendar-month" id="calendar-month" defaultValue={ calendar.currentMonth().month } onChange={ goToMonth }>
+						{
+							MONTH_LABELS_SHORT.map((label: string, index: number) => (
+								<option value={ index + 1 }>{ label }</option>
+							))
+						}
+					</select>
+					<select name="calendar-year" id="calendar-year" defaultValue={ calendar.currentMonth().year } onChange={ goToYear }>
+						{
+							YEARS.map((year: number) => (
+								<option value={ year }>{ year }</option>
+							))
+						}
+					</select>
+					{/* { getYearFromId(calendar.current) } */}
 				</div>
 				<SingleArrow id="next-month" direction="right" onClick={ nextMonth } />
+				<DoubleArrow id="next-month" direction="right" onClick={ nextYear } />
 			</div>
 			<div className={ `calendar ${ size }` }>
 				<div className="calendar-content">

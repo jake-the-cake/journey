@@ -7,10 +7,10 @@ type CalendarContextType = {
 	calendar: CalendarData
 	nextMonth: () => void
 	prevMonth: () => void
-	// nextYear: () => void
-	// prevYear: () => void
-	// gotoMonth: (month: number, year?: number) => void
-	// gotoYear: (year: number) => void
+	nextYear: () => void
+	prevYear: () => void
+	goToMonth: (e: any) => void
+	goToYear: (e: any) => void
 }
 
 export const CalendarContext = createContext<CalendarContextType | null>(null)
