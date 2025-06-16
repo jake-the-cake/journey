@@ -69,6 +69,38 @@ function getDateAndTimeFromCode(code: string): string[] {
 	return code.split(':')
 }
 
+function parseTimeCode(code: string): any {
+// function parseTimeCode(code: string): TimeCodeTime {
+	return {
+		hours: parseInt(code.slice(0, 2), 10),
+		minutes: parseInt(code.slice(2, 4), 10),
+		seconds: parseInt(code.slice(4, 6), 10),
+		ms: parseInt(code.slice(6), 10),
+	}
+}
+
+function getTimeFromCode(code: string, structure: string = 'h:m:s.x', format: number = 24, suffix: string = 'upper'): string {
+	let { hours, minutes, seconds, ms } = parseTimeCode(code.padEnd(9, '0'));
+	let ending = 'am'
+	if (format === 12 && hours >= 12) {
+		ending = 'pm'
+		hours = (hours % 12) || 12
+	}
+	structure = structure.replace('h', hours.toString())
+		.replace('m', minutes.toString().padStart(2, '0'))
+		.replace('s', seconds.toString().padStart(2, '0'))
+		.replace('x', ms.toString())
+	if (format === 12) {
+		switch (suffix) {
+			case 'upper': {
+				ending = ending.toUpperCase()
+			} 
+			default: structure += ending
+		}
+	}
+	return structure
+}
+
 export {
 	createDateId,
 	createMonthId,
@@ -80,5 +112,6 @@ export {
 	getMonthAndDateFromId,
 	getPrevMonthIdFromId,
 	getNextMonthIdFromId, 
-	getDateAndTimeFromCode
+	getDateAndTimeFromCode,
+	getTimeFromCode
 }

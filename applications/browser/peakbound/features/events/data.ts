@@ -21,7 +21,6 @@ class EventsData {
       if (!this.data[e.startDate]) this.data[e.startDate] = []
       this.data[e.startDate].push(e)
     })
-		console.log('Populated:', this.data)
     return this.data 
 	}
 

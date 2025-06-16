@@ -2,10 +2,9 @@
 
 import Link from "next/link"
 import MoreInfo from "../svg/MoreInfo"
-import { CalendarDateDataType } from "@/features/calendar/types"
 import { MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 import { useEvents } from "@/features/events/context"
-import { getDateFromId, getMonthFromId, getYearFromId } from "@/lib/datetime/code"
+import { getDateFromId, getMonthFromId, getTimeFromCode, getYearFromId } from "@/lib/datetime/code"
 
 export default function EventListPreview() {
 	const { events } = useEvents()
@@ -29,9 +28,10 @@ export default function EventListPreview() {
 									<div className="event-details">
 										<div className="event-title">{ d.title }</div>
 										<div className="event-location">{ d.location }</div>
+										<div className="event-location">{ getTimeFromCode(d.startTime, 'h:m', 12) }</div>
 									</div>
 									<div className="event-link">
-										<Link href="/">
+										<Link href={ `/events/${ d.id }` }>
 											<MoreInfo color="secondary" />
 											<span className="text-c">Info</span>
 										</Link>

@@ -5,7 +5,6 @@ import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
 import { DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 import { getMonthFromId, getYearFromId } from "@/lib/datetime/code"
-import { EventsProvider } from "@/features/events/provider"
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
 	const { calendar, prevMonth, nextMonth } = useCalendar()

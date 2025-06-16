@@ -3,8 +3,6 @@ import { useEvents } from "@/features/events/context"
 
 export default function CalendarDay({ date, isInactive }: { date: CalendarDateDataType, isInactive: boolean }) {
 	const { events } = useEvents()
-	console.log(events)
-
 
 	return (
 		<div className={ `calendar-day ${ isInactive && 'inactive' } }` }>
