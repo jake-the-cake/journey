@@ -5,7 +5,7 @@ import SingleArrow from "../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
 import { DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 import { getMonthFromId, getYearFromId } from "@/lib/datetime/code"
-
+import { EventsProvider } from "@/features/events/provider"
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
 	const { calendar, prevMonth, nextMonth } = useCalendar()
@@ -32,7 +32,12 @@ export default function Calendar({ size = 'mini' }: { size?: any }) {
 						Out Of Range
 					</div> :
 					<div className="calendar-content">
-						{ calendar.currentMonth().extendedDates.map(day => <CalendarDay key={ day.id } date={ day } isInactive={ calendar.getMonth() !== day.month } /> )}
+						<EventsProvider>
+						{ calendar.currentMonth().extendedDates.map(day => (
+								<CalendarDay key={ day.id } date={ day } isInactive={ calendar.getMonth() !== day.month } /> 
+							)
+						)}
+						</EventsProvider>
 					</div>
 				}
 			</div>

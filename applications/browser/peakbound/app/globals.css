@@ -432,8 +432,7 @@ section {
 	}
 }
 
-.event-count,
-.event-count-none {
+.event-count {
 	background-color: var(--accent);
 	color: var(--secondary);
 	font-weight: 600;
@@ -445,12 +444,11 @@ section {
 	margin: .2rem auto;
 	width: 1rem;
 	height: 1rem;
-}
 
-.event-count-none {
-	background-color: transparent;
+	&.none {
+		background-color: transparent;
+	}
 }
-
 
 @media (max-width: 40rem) {
 	.flip-col-rev {
