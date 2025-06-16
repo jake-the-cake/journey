@@ -2,6 +2,7 @@ import Link from "next/link"
 import Calendar from "./_components/Calendar"
 import { CalendarProvider } from "@/features/calendar/provider"
 import EventListPreview from "./_components/EventListPreview"
+import { EventsProvider } from "@/features/events/provider"
 
 export default function Home() {
 
@@ -19,8 +20,10 @@ export default function Home() {
 				<h3>Upcoming Events</h3>
 				<div className="row-10 flip-col">
 					<CalendarProvider>
-						<Calendar size="mini" />
-						<EventListPreview />
+						<EventsProvider>
+							<Calendar size="mini" />
+							<EventListPreview />
+						</EventsProvider>
 					</CalendarProvider>
 				</div>
 			</section>

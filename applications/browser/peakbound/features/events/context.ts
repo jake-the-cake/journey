@@ -5,7 +5,6 @@ import { EventsData } from './data'
 
 type EventsContextType = {
 	events: EventsData
-	// update: () => void
 }
 
 export const EventsContext = createContext<EventsContextType | null>(null)

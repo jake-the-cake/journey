@@ -17,7 +17,6 @@ export function EventsProvider({ children }: { children: ReactNode }) {
 
 	const ctxValue = {
 		events: eventsData,
-		// update: forceUpdate
 	}
 
 	return (

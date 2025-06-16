@@ -65,6 +65,10 @@ function getNextMonthIdFromId(id: string): string {
 	return createMonthId({ year, month })
 }
 
+function getDateAndTimeFromCode(code: string): string[] {
+	return code.split(':')
+}
+
 export {
 	createDateId,
 	createMonthId,
@@ -75,5 +79,6 @@ export {
 	getYearAndMonthFromId,
 	getMonthAndDateFromId,
 	getPrevMonthIdFromId,
-	getNextMonthIdFromId
+	getNextMonthIdFromId, 
+	getDateAndTimeFromCode
 }
