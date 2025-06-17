@@ -20,14 +20,14 @@ export default function Calendar({ size = 'mini' }: { size?: any }) {
 				<DoubleArrow id="prev-month" direction="left" onClick={ prevYear } />
 				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
 				<div className="calendar-label">
-					<select name="calendar-month" id="calendar-month" defaultValue={ calendar.currentMonth().month } onChange={ goToMonth }>
+					<select name="calendar-month" id="calendar-month" value={ calendar.currentMonth().month } onChange={ goToMonth }>
 						{
 							MONTH_LABELS_SHORT.map((label: string, index: number) => (
 								<option value={ index + 1 }>{ label }</option>
 							))
 						}
 					</select>
-					<select name="calendar-year" id="calendar-year" defaultValue={ calendar.currentMonth().year } onChange={ goToYear }>
+					<select name="calendar-year" id="calendar-year" value={ calendar.currentMonth().year } onChange={ goToYear }>
 						{
 							YEARS.map((year: number) => (
 								<option value={ year }>{ year }</option>
