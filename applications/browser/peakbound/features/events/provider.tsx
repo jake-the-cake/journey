@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect, useRef, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { EventsData } from '@/features/events/data'
 import { EventsContext } from "@/features/events/context"
 
@@ -10,9 +10,11 @@ export function EventsProvider({ children }: { children: ReactNode }) {
 	useEffect(() => {
 		eventsData.populateData()
 		.then(() => {
-			eventsData.isPopulated = true
-	 		setEventData(new EventsData(eventsData.data))
+			const event = new EventsData(eventsData.data)
+			event.isPopulated = true
+			setEventData(event)
 		})
+		return () => setEventData(new EventsData())
 	}, [])
 
 	const ctxValue = {

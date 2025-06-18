@@ -272,13 +272,23 @@ section {
 		justify-content: space-between;
 		align-items: center;
 		width: 100%;
+		max-width: 16rem;
 
 		.calendar-label {
-			font-weight: 600;
-			letter-spacing: 2px;
-			font-style: italic;
-			text-align: center;
+			display: flex;
+			gap: .2rem;
+
+			select {
+				background-color: transparent;
+				border: none;
+				padding-inline: .35rem;
+				font-weight: 600;
+				letter-spacing: 2px;
+				font-style: italic;
+				text-align: center;
+			}
 		}
+
 	
 		#prev-month,
 		#next-month {
