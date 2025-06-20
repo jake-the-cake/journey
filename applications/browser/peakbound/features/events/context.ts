@@ -3,7 +3,7 @@
 import { createContext, useContext } from 'react'
 import { EventsData } from './data'
 
-type EventsContextType = {
+export type EventsContextType = {
 	events: EventsData
 }
 

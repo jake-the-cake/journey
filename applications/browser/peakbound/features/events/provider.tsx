@@ -2,22 +2,20 @@
 
 import { ReactNode, useEffect, useState } from "react"
 import { EventsData } from '@/features/events/data'
-import { EventsContext } from "@/features/events/context"
+import { EventsContext, EventsContextType } from "@/features/events/context"
 
 export function EventsProvider({ children }: { children: ReactNode }) {
-	const [eventsData, setEventData] = useState(new EventsData())
+	const [eventsData, setEventData] = useState<EventsData>(new EventsData())
 
 	useEffect(() => {
 		eventsData.populateData()
-		.then(() => {
-			const event = new EventsData(eventsData.data)
-			event.isPopulated = true
-			setEventData(event)
+		.then((data) => {
+			setEventData(new EventsData(data))
 		})
 		return () => setEventData(new EventsData())
 	}, [])
 
-	const ctxValue = {
+	const ctxValue: EventsContextType = {
 		events: eventsData,
 	}
 

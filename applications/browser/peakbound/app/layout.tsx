@@ -1,7 +1,8 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import Navbar from "./_components/Navbar"
-// import { publicCalendar } from "@/features/calendar/read"
+import { CalendarProvider } from "@/features/calendar/provider"
+import { EventsProvider } from "@/features/events/provider"
 
 export const metadata: Metadata = {
   title: "Peak Bound",
@@ -9,12 +10,16 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: Readonly<{  children: React.ReactNode }>) {
-	// const calendars = await publicCalendar()
-  return (
+
+	return (
     <html lang="en">
       <body className={`antialiased`}>
-				<Navbar />
-        {children}
+				<CalendarProvider>
+					<EventsProvider>
+						<Navbar />
+						{children}
+					</EventsProvider>
+				</CalendarProvider>
       </body>
     </html>
   )

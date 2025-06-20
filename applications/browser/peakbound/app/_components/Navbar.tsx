@@ -1,12 +1,58 @@
-'use client';
+'use client'
 
-import Link from "next/link"
-import Script from "next/script"
+import Link from 'next/link'
+import { useEffect } from 'react'
+
+interface NavLinkDataType {
+	href: string
+	label: string
+	classList?: string[]
+}
+
+const navLinks: NavLinkDataType[] = [
+	{
+		href: '/events',
+		label: 'Events'
+	}, {
+		href: '/programs',
+		label: 'Programs'
+	}, {
+		href: '/media',
+		label: 'Media'
+	}, {
+		href: '/info',
+		label: 'Info'
+	}, {
+		href: '/support',
+		label: 'Support'
+	}
+]
 
 export default function Navbar() {
+	useEffect(() => {
+		const nav:      HTMLElement = document.querySelector('nav')!
+		const miniNav:  HTMLElement = nav.cloneNode(true) as HTMLElement
+		miniNav.classList.add('nav-h')
+		document.body.appendChild(miniNav)
+		const triggerHeight: number = nav.offsetHeight
+
+		function containsClass(className: string = 'down'): boolean {
+			return miniNav!.classList.contains(className)
+		}
+
+		function dropDown() { miniNav.classList.add('down') }
+		function raiseUp() { miniNav.classList.remove('down') }
+
+		function onScroll() {
+			if (window.scrollY > triggerHeight && !containsClass('down')) dropDown()
+			if (window.scrollY < triggerHeight && containsClass('down'))  raiseUp()
+		}
+
+		window.addEventListener('scroll', onScroll)
+		return () => { window.removeEventListener('scroll', onScroll) }
+	}, [])
 
 	return (
-		<>
 		<nav>
 			<div className="main-logo-mask">
 				<Link href="/">
@@ -15,36 +61,13 @@ export default function Navbar() {
 			</div>
 			<div className="menu-bar">
 				<ul>
-					<li><Link href={ '/schedule' }>Events</Link></li>
-					<li><Link href={ '/programs' }>Programs</Link></li>
-					<li><Link href={ '/media' }>Media</Link></li>
-					<li><Link href={ '/info' }>Info</Link></li>
-					<li><Link href={ '/support' }>Support</Link></li>
+				{ navLinks.map(link => (
+					<li key={ `navlink-${ link.label.toLowerCase() }` }>
+						<Link href={ link.href  } className={ link.classList ? link.classList.join(' ') : '' }>{ link.label }</Link>
+					</li>
+				))}
 				</ul>
 			</div>
 		</nav>
-		<Script id="nav-scroll-handler" strategy="lazyOnload">
-			{`
-				const nav = document.querySelector('nav')
-				const main = document.querySelector('main')
-				const className = 'nav-h'
-				if (nav && main) {
-					let triggerHeight = nav.offsetHeight
-					window.addEventListener('scroll', function () {
-					if (window.scrollY > triggerHeight && !nav.classList.contains(className)) {
-						nav.classList.add(className)
-						triggerHeight = nav.offsetHeight
-						main.style.marginTop = triggerHeight + 50 + 'px'
-					}
-					if (window.scrollY <= triggerHeight && nav.classList.contains(className)) {
-						nav.classList.remove(className)
-						triggerHeight = nav.offsetHeight
-						main.style.marginTop = '0px'
-					}
-					})
-				}
-			`}
-		</Script>
-		</>
 	)
 }
