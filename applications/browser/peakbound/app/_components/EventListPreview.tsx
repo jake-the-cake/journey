@@ -8,37 +8,37 @@ import { getDateFromId, getMonthFromId, getTimeFromCode, getYearFromId } from "@
 
 export default function EventListPreview() {
 	const { events } = useEvents()
-	const data = Object.entries(events.data)
+	const data = events.getDataByNumLastDays(14)
+
 	return (
 		<div id='event-preview-list'>
 			<div className="event-filter">
 				Next 2 Weeks
 			</div>
 			<div className="event-item-list">
-				{
-					data.length > 0 ? (<>
-						{ data.map(([k, v]: any) => (
-							v.map((d: any) => 
-								<div className="event-item" id={ d.id } key={ d.id }>
-									<div className="event-date">
-										<div className="month">{ MONTH_LABELS_SHORT[getMonthFromId(d.startDate)! - 1] }</div>
-										<div className="date">{ getDateFromId(d.startDate) }</div>
-										<div className="year">{ getYearFromId(d.startDate) }</div>
-											</div>
-									<div className="event-details">
-										<div className="event-title">{ d.title }</div>
-										<div className="event-location">{ d.location }</div>
-										<div className="event-location">{ getTimeFromCode(d.startTime, 'h:m', 12) }</div>
-									</div>
-									<div className="event-link">
-										<Link href={ `/events/${ d.id }` }>
-											<MoreInfo color="secondary" />
-											<span className="text-c">Info</span>
-										</Link>
-									</div>
+				{ 
+					data.length > 0 ? (<> {
+						data.map((d: any) => (
+							<div className="event-item" id={ d.id } key={ d.id }>
+								<div className="event-date">
+									<div className="month">{ MONTH_LABELS_SHORT[getMonthFromId(d.startDate)! - 1] }</div>
+									<div className="date">{ getDateFromId(d.startDate) }</div>
+									<div className="year">{ getYearFromId(d.startDate) }</div>
 								</div>
-							)
-						)) }
+								<div className="event-details">
+									<div className="event-title">{ d.title }</div>
+									<div className="event-location">{ d.location }</div>
+									<div className="event-location">{ getTimeFromCode(d.startTime, 'h:m', 12) }</div>
+								</div>
+								<div className="event-link">
+									<Link href={ `/events/${ d.id }` }>
+										<MoreInfo color="secondary" />
+										<span className="text-c">Info</span>
+									</Link>
+								</div>
+							</div>
+						))
+					}
 					</>) : <div className="event-item none p10">No Events Found</div> 
 				}
 

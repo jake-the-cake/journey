@@ -1,4 +1,4 @@
-import { getDateAndTimeFromCode } from "@/lib/datetime/code"
+import { createDateId, getDateAndTimeFromCode } from "@/lib/datetime/code"
 import { EventDataType, EventsDataType, EventDataTypeServer } from "./types"
 
 class EventsData {
@@ -11,7 +11,6 @@ class EventsData {
 	}
 	
 	async populateData(): Promise<EventsDataType> {
-		console.log(this)
 		if (!this.isPopulated) {
 			this.data = {}
 			const response = await fetch('http://localhost:8000/events')
@@ -47,6 +46,16 @@ class EventsData {
 			description,
 			directions
 		}
+	}
+
+	getDataByNumLastDays(days: number): EventDataType[] {
+		const events: EventDataType[] = []
+		const today = new Date()
+		const start = new Date(today.getTime() - (days * 24 * 60 * 60 * 1000))
+		const startId = createDateId({ year: start.getFullYear(), month: start.getMonth() + 1, date: start.getDate() })
+		const endId = createDateId({ year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate() })
+		Object.entries(this.data).filter(([key]) => key >= startId && key <= endId).forEach(value => events.push(...value[1]))
+		return events
 	}
 }
 
