@@ -55,7 +55,28 @@ class EventsData {
 		const startId = createDateId({ year: start.getFullYear(), month: start.getMonth() + 1, date: start.getDate() })
 		const endId = createDateId({ year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate() })
 		Object.entries(this.data).filter(([key]) => key >= startId && key <= endId).forEach(value => events.push(...value[1]))
-		return events
+		return [...events]
+	}
+
+	getDataByNumDays(days: number, direction: string = 'next'): EventDataType[] {
+		if (direction === 'next') return this.getDataByNumNextDays(days)
+		else return this.getDataByNumLastDays(days)
+	}
+
+	getDataByNumNextDays(days: number): EventDataType[] {
+		const events: EventDataType[] = []
+		const today = new Date()
+		const end = new Date(today.getTime() + (days * 24 * 60 * 60 * 1000))
+		const startId = createDateId({ year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate() })
+		const endId = createDateId({ year: end.getFullYear(), month: end.getMonth() + 1, date: end.getDate() })
+		Object.entries(this.data).filter(([key]) => key >= startId && key <= endId).forEach(value => events.push(...value[1]))
+		return [...events]
+	}
+
+	getDateByMonth(monthId: string): EventDataType[] {
+		const events: EventDataType[] = []
+		Object.entries(this.data).filter(([key]) => key.startsWith(monthId)).forEach(value => events.push(...value[1]))
+		return [...events]
 	}
 }
 

@@ -1,10 +1,10 @@
 'use client'
 
 import { useCalendar } from "@/features/calendar/context"
-import SingleArrow from "../svg/SingleArrow"
+import SingleArrow from "../../svg/SingleArrow"
 import CalendarDay from "./CalendarDay"
 import { CALENDAR_END_YEAR, CALENDAR_START_YEAR, DAY_LABELS_SHORT, MONTH_LABELS_SHORT } from "@/features/calendar/constants"
-import DoubleArrow from "../svg/DoubleArrow"
+import DoubleArrow from "../../svg/DoubleArrow"
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
 	const { calendar, prevMonth, nextMonth, prevYear, nextYear, goToMonth, goToYear } = useCalendar()

@@ -267,6 +267,20 @@ section {
 	align-items: center;
 }
 
+select {
+	background-color: transparent;
+	border: none;
+	padding-inline: .35rem;
+	font-weight: 600;
+	letter-spacing: 2px;
+	font-style: italic;
+	text-align: center;
+
+	&.event-filter {
+		width: 10rem;
+	}
+}
+
 /* CALENDAR STYLES */
 
 .calendar-container {
@@ -284,18 +298,7 @@ section {
 		.calendar-label {
 			display: flex;
 			gap: .2rem;
-
-			select {
-				background-color: transparent;
-				border: none;
-				padding-inline: .35rem;
-				font-weight: 600;
-				letter-spacing: 2px;
-				font-style: italic;
-				text-align: center;
-			}
 		}
-
 	
 		#prev-month,
 		#next-month {
@@ -370,13 +373,11 @@ section {
 	flex-direction: column;
 	gap: .4rem;
 	align-items: center;
-
-	.event-filter, .event-link-normal {
-		font-weight: 600;
-		font-size: .8rem;
-	}
+	width: 100%;
 
 	.event-link-normal {
+		font-weight: 600;
+		font-size: .8rem;
 		color: var(--secondary);
 		transition: color .3s linear;
 	}
