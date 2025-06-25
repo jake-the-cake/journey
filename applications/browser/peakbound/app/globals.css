@@ -275,6 +275,7 @@ select {
 	letter-spacing: 2px;
 	font-style: italic;
 	text-align: center;
+	cursor: grab;
 
 	&.event-filter {
 		width: 10rem;

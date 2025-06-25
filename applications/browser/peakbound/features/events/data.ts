@@ -73,7 +73,7 @@ class EventsData {
 		return [...events]
 	}
 
-	getDateByMonth(monthId: string): EventDataType[] {
+	getDataByMonth(monthId: string): EventDataType[] {
 		const events: EventDataType[] = []
 		Object.entries(this.data).filter(([key]) => key.startsWith(monthId)).forEach(value => events.push(...value[1]))
 		return [...events]

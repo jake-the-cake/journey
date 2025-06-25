@@ -39,7 +39,6 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
 	const goToYear = (e: any) => {
 		const month = getMonthFromId(calendarRef.current.current)
 		calendarRef.current.switchMonth(createMonthId({ year: e.target.value, month }))
-		console.log(calendarRef.current.current)
 		forceUpdate()
 	}
 

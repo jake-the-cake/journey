@@ -1,0 +1,9 @@
+Todo:
+
+>> refactor code.ts into separate date and time files
+
+>> create a day view for the calendar and refactor the calendar into smaller components
+
+>> mongo live db
+
+>> users (later)

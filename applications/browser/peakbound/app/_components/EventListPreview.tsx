@@ -5,6 +5,7 @@ import MoreInfo from '@/svg/MoreInfo'
 import {
   ChangeEvent,
   useEffect,
+  useRef,
   useState
 } from 'react'
 import {
@@ -35,19 +36,26 @@ export default function EventListPreview() {
   const { events } = useEvents()
   const [eventList, setEventList] = useState<EventDataType[]>([])
   const [currentValue, setCurrentValue] = useState<string>(calendar.current)
+  // Track the previous calendar.current value
+  const prevCalendarCurrent = useRef(calendar.current)
+
+  // Sync currentValue with calendar.current only if user is viewing the month filter
+  useEffect(() => {
+    if (currentValue === prevCalendarCurrent.current) {
+      setCurrentValue(calendar.current)
+    }
+    prevCalendarCurrent.current = calendar.current
+  }, [calendar.current])
 
   // Update event list when calendar month, filter, or events change
   useEffect(() => {
-    // If filter is current month, show events for that month
     if (currentValue === calendar.current) {
-      setEventList(events.getDateByMonth(calendar.current))
+      setEventList(events.getDataByMonth(calendar.current))
     } else {
-      // Otherwise, parse days and direction from filter value
       const days = realParseInt(currentValue)
       const direction = currentValue.replace(days.toString(), '')
       setEventList(events.getDataByNumDays(days, direction))
     }
-    // Cleanup: clear event list on unmount
     return () => setEventList([])
   }, [calendar.current, currentValue, events])
 
