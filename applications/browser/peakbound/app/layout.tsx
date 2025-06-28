@@ -1,6 +1,6 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import Navbar from "./_components/Navbar"
+import Navbar from "@/components/Navbar"
 import { CalendarProvider } from "@/features/calendar/provider"
 import { EventsProvider } from "@/features/events/provider"
 

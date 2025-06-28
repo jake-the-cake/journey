@@ -2,7 +2,7 @@
 
 import { DAY_LABELS_SHORT } from '@/features/calendar/constants'
 import { useCalendar } from '@/features/calendar/context'
-import CalendarDay from '@/app/_components/CalendarDay'
+import CalendarDay from '@/components/calendar/MiniCalendarDay'
 import MiniCalendarControls from './MiniCalendarControls'
 
 export default function MiniCalendar() {
