@@ -344,7 +344,9 @@ select {
 		}
 	
 		#prev-month,
-		#next-month {
+		#next-month,
+		#prev-year,
+		#next-year {
 			padding-inline: .5rem;
 			height: 10px;
 			cursor: pointer;

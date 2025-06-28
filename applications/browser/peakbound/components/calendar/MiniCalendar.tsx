@@ -1,80 +1,51 @@
 'use client'
 
-import SingleArrow from "@/svg/SingleArrow"
-import DoubleArrow from "@/svg/DoubleArrow"
-import { 
-	CALENDAR_END_YEAR, 
-	CALENDAR_START_YEAR, 
-	DAY_LABELS_SHORT, 
-	MONTH_LABELS_SHORT } from "@/features/calendar/constants"
-import { useCalendar } from "@/features/calendar/context"
-import CalendarDay from "@/app/_components/CalendarDay"
+import { DAY_LABELS_SHORT } from '@/features/calendar/constants'
+import { useCalendar } from '@/features/calendar/context'
+import CalendarDay from '@/app/_components/CalendarDay'
+import MiniCalendarControls from './MiniCalendarControls'
 
-export default function Calendar({ size = 'mini' }: { size?: any }) {
-	const { 
-		calendar, 
-		prevMonth, 
-		nextMonth, 
-		prevYear, 
-		nextYear, 
-		goToMonth, 
-		goToYear 
-	} = useCalendar()
-	let YEARS: any = []
-	for (let i = CALENDAR_START_YEAR; i <= CALENDAR_END_YEAR; i++) {
-		YEARS.push(i)
-	}
+export default function MiniCalendar() {
+  const { calendar } = useCalendar()
 
-	return (
-		<div className="calendar-container">
-			<div className="calendar-controls">
-				<DoubleArrow id="prev-month" direction="left" onClick={ prevYear } />
-				<SingleArrow id="prev-month" direction="left" onClick={ prevMonth } />
-				<div className="calendar-label">
-					<select 
-						name="calendar-month" 
-						id="calendar-month" 
-						value={ calendar.currentMonth().month } 
-						onChange={ goToMonth }
-					>
-						{	MONTH_LABELS_SHORT.map((label: string, index: number) => (
-								<option value={ index + 1 } key={ label + index }>{ label }</option>
-						)) }
-					</select>
-					<select 
-						name="calendar-year" 
-						id="calendar-year" 
-						value={ calendar.currentMonth().year } 
-						onChange={ goToYear }
-					>
-						{	YEARS.map((year: number) => (
-								<option value={ year } key={ year }>{ year }</option>
-						)) }
-					</select>
-				</div>
-				<SingleArrow id="next-month" direction="right" onClick={ nextMonth } />
-				<DoubleArrow id="next-month" direction="right" onClick={ nextYear } />
-			</div>
-			<div className={ `calendar ${ size }` }>
-				<div className="calendar-content">
-					{ DAY_LABELS_SHORT.map(name => (
-						<div className="calendar-dayofweek" key={ 'day-' + name }>
-							<span className="dayofweek-label" id={ 'day-' + name }>{ name }</span>
-						</div>
-					)) }
-				</div>
-				{ !calendar.data[calendar.current] ?
-					<div className="text-c italic p10">
+  const currentMonth = calendar.currentMonth()
+  const isOutOfRange = !calendar.data[calendar.current]
+
+  return (
+    <div className='calendar-container'>
+			<MiniCalendarControls />
+      <div className='calendar mini'>
+        <div className='calendar-content'>
+          { DAY_LABELS_SHORT.map(name => (
+            <div 
+							key={'day-' + name}
+							className='calendar-dayofweek' 
+						>
+              <span 
+								id={ 'day-' + name }
+								className='dayofweek-label' 
+							>
+                { name }
+              </span>
+            </div>
+          )) }
+        </div>
+        { isOutOfRange ? (
+          <div className='text-c italic p10'>
 						Out Of Range
-					</div> :
-					<div className="calendar-content">
-						{ calendar.currentMonth().extendedDates.map(day => (
-								<CalendarDay key={ day.id } date={ day } isInactive={ calendar.getMonth() !== day.month } /> 
-							)
-						)}
 					</div>
-				}
-			</div>
-		</div>
-	)
+        ) : (
+          <div className='calendar-content'>
+            { currentMonth.extendedDates.map(day => (
+              <CalendarDay
+                key={ day.id }  
+                date={ day }
+                isInactive={ currentMonth.month !== day.month }
+              />
+            )) }
+          </div>
+        ) }
+      </div>
+    </div>
+  )
 }
