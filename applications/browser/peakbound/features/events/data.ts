@@ -3,15 +3,16 @@ import { EventDataType, EventsDataType, EventDataTypeServer } from "./types"
 
 class EventsData {
 	data: EventsDataType
-	isPopulated: boolean
+	isLoaded: boolean
+
 
 	constructor(data: EventsDataType | {} = {}) {
 		this.data = data as EventsDataType
-		this.isPopulated = false
+		this.isLoaded = false
 	}
 	
 	async populateData(): Promise<EventsDataType> {
-		if (!this.isPopulated) {
+		if (!this.isLoaded) {
 			this.data = {}
 			const response = await fetch('http://localhost:8000/events')
 			if (!response.ok) {

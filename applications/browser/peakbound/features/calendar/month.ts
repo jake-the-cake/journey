@@ -21,7 +21,7 @@ import {
  * CalendarMonth represents a single month in the calendar,
  * including its dates, labels, and utility methods.
  */
-class CalendarMonth {
+export class CalendarMonth {
   id: string
   year: number
   month: number
@@ -43,10 +43,10 @@ class CalendarMonth {
     this.id = id
     this.year = year!
     this.month = month!
-    this.dayCount = this.getDayCount()
     const labels = this.getLabels()
     this.monthLabel = labels.monthLabel
     this.monthLabelShort = labels.monthLabelShort
+    this.dayCount = this.getDayCount()
     // Day of week for the 1st of the month (0 = Sunday)
     this.startDay = new Date(this.year, this.month - 1, 1).getDay()
     // Day of week for the last day of the month
@@ -88,7 +88,6 @@ class CalendarMonth {
       })
       day = (day + 1) % 7
     }
-		console.log(dates[1])
 		return dates
   }
 
@@ -133,5 +132,3 @@ class CalendarMonth {
     }
   }
 }
-
-export { CalendarMonth }

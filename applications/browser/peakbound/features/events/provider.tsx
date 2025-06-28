@@ -5,14 +5,16 @@ import { EventsData } from '@/features/events/data'
 import { EventsContext, EventsContextType } from "@/features/events/context"
 
 export function EventsProvider({ children }: { children: ReactNode }) {
-	const [eventsData, setEventData] = useState<EventsData>(new EventsData())
+	const [eventsData, setEventsData] = useState<EventsData>(new EventsData())
 
 	useEffect(() => {
 		eventsData.populateData()
 		.then((data) => {
-			setEventData(new EventsData(data))
+			const events = new EventsData(data)
+			events.isLoaded = true
+			setEventsData(events)
 		})
-		return () => setEventData(new EventsData())
+		return () => setEventsData(new EventsData())
 	}, [])
 
 	const ctxValue: EventsContextType = {

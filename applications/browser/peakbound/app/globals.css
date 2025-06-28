@@ -79,6 +79,7 @@
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 	transition: height .3s linear;
+	position: relative;
 }
 
 body {
@@ -110,7 +111,7 @@ nav {
 	padding-inline: 1rem;
 	position: fixed;
 	top: 0;
-	z-index: 1000;
+	z-index: 1001;
 	transform: translateY(-100%);
 	transition: transform .3s linear;
 	width: 100%;
@@ -186,6 +187,7 @@ main {
 	align-items: center;
 	max-width: var(--max-width);
 	margin: auto;
+	position: relative;
 }
 
 section {
@@ -217,6 +219,22 @@ section {
 	}
 }
 
+.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: var(--light);
+	display: grid;
+	place-content: center;
+	
+	&.hide {
+		display: none;
+	}
+}
+
 .p10 {
 	padding: 1rem !important;
 }
@@ -245,12 +263,36 @@ section {
 .card,
 .calendar {
 	box-shadow: 0 2px 5px -1px var(--dark);
-	background-color: var(--primary-tran);
 	border: 1px solid var(--primary);
+	
+	&.secondary {
+		background-color: var(--secondary-half);
+	}
+	&.accent {
+		background-color: var(--accent-half);
+	}
+
+	&.primary {
+		background-color: var(--primary-half);
+	}
+
+	&.primary-t {
+		background-color: var(--primary-tran);
+	}
 }
 
 .card {
 	padding: 1rem;
+}
+
+.card-list {
+	display: flex;
+	flex-wrap: wrap;
+
+	.card {
+		flex: 1;
+		min-width: 300px;
+	}
 }
 
 .row-10,

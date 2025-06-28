@@ -2,13 +2,13 @@
 
 import SingleArrow from "@/svg/SingleArrow"
 import DoubleArrow from "@/svg/DoubleArrow"
-import CalendarDay from "./CalendarDay"
 import { 
 	CALENDAR_END_YEAR, 
 	CALENDAR_START_YEAR, 
 	DAY_LABELS_SHORT, 
 	MONTH_LABELS_SHORT } from "@/features/calendar/constants"
 import { useCalendar } from "@/features/calendar/context"
+import CalendarDay from "@/app/_components/CalendarDay"
 
 export default function Calendar({ size = 'mini' }: { size?: any }) {
 	const { 
