@@ -1,15 +1,12 @@
-import MiniCalendar from "@/components/calendar/MiniCalendar";
+import EventsList from "@/components/events/EventsList";
 
 export default function EventsPage() {
+
 	return (
-		<main className="col-10">
-			<h1 className="text-c">List Of Events</h1>
-			<div className="row-10 flip-col-rev">
-				<div className="event-list">
-					Events
-				</div>
-				<MiniCalendar />
-			</div>
+		<main>
+			<section>
+				<EventsList />
+			</section>
 		</main>
 	)
 }

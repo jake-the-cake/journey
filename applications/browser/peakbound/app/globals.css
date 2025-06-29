@@ -181,6 +181,7 @@ section .block-quote {
 .italic { font-style: italic; }
 .text-sm { font-size: .8rem; }
 .text-c { text-align: center; }
+.f-1 { flex: 1 }
 
 .card, .calendar {
   box-shadow: 0 2px 5px -1px var(--dark);

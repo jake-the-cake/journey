@@ -5,8 +5,10 @@ export default function Home() {
 
   return (
 		<main>
-			<section>
+			<div className="hero">
 				<p>Something else can go here first.</p>
+			</div>
+			<section>
 				<p className="block-quote text-c">Peak Bound is a community wellness movement that blends physical fitness with spiritual growth. Our mission is to create outdoor group programs and events that invite people to experience the beauty of nature while connecting meaningfully with others—no matter their experience level.</p>
 				<div className="card primary-t text-sm col-10 text-c">
 					<p>Whether you're looking for a fresh start or need a little help with performance, we are here to help you reach your goals.</p>

@@ -1,5 +1,9 @@
-import { createDateId, getDateAndTimeFromCode } from "@/lib/datetime/code"
+import { createDateId, getDateAndTimeFromCode, getMonthIdFromDateId } from "@/lib/datetime/code"
 import { EventDataType, EventsDataType, EventDataTypeServer } from "./types"
+import { CalendarMonthDataType } from "../calendar/types"
+import { CalendarData } from "../calendar/data"
+
+type EventsByMonthDataType = Record<string, EventDataType[]>
 
 class EventsData {
 	data: EventsDataType
@@ -47,6 +51,25 @@ class EventsData {
 			description,
 			directions
 		}
+	}
+
+	getAllUpcomingEvents(): EventsByMonthDataType {
+		this.isLoaded = false
+		const today = new Date()
+		const dateId = createDateId({
+			year: today.getFullYear(),
+			month: today.getMonth() + 1,
+			date: today.getDate()
+		})
+		const data: EventsByMonthDataType = {}
+		const query = Object.keys(this.data).filter(key => key >= dateId)
+		query.forEach(q => {
+			const monthId = getMonthIdFromDateId(q)
+			if (!data[monthId])data[monthId] = []
+			data[monthId].push(...this.data[q])
+		})
+		this.isLoaded = true
+		return data
 	}
 
 	getDataByNumLastDays(days: number): EventDataType[] {
