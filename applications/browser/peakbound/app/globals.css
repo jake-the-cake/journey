@@ -163,6 +163,23 @@ section .block-quote {
   border-inline: 1px solid var(--primary-tran);
 }
 
+button {
+	padding: .5rem 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color .3s linear, color .3s linear;
+	
+	&.primary {
+		background-color: var(--primary);
+		color: var(--light);
+
+		&:hover {
+			background-color: var(--primary-tran);
+			color: var(--primary);
+		}
+	}
+}
+
 .loader {
   position: absolute;
   top: 0; left: 0;
@@ -175,6 +192,7 @@ section .block-quote {
 .loader.hide { display: none; }
 
 .p10 { padding: 1rem !important; }
+.mt-10 { margin-top: 1rem !important; }
 .mb-10 { margin-bottom: 1rem !important; }
 .mb-20 { margin-bottom: 2rem !important; }
 .m-auto { margin: auto; }
@@ -183,7 +201,7 @@ section .block-quote {
 .text-c { text-align: center; }
 .f-1 { flex: 1 }
 
-.card, .calendar {
+.card, .calendar, button {
   box-shadow: 0 2px 5px -1px var(--dark);
   border: 1px solid var(--primary);
 }
@@ -196,9 +214,12 @@ section .block-quote {
 .card-list { display: flex; flex-wrap: wrap; }
 .card-list .card { flex: 1; min-width: 300px; }
 
+.row, .col { display: flex;}
+.col { flex-direction: column; }
 .row-10, .col-10 { display: flex; gap: 1rem; }
 .col-10 { flex-direction: column; }
 .col-c { align-items: center; }
+.row-c { justify-content: center; }
 
 select {
   background-color: transparent;
@@ -364,6 +385,13 @@ select.event-filter { width: 10rem; }
   height: 1rem;
 }
 .event-count.none { background-color: transparent; }
+
+.event-page {
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+}
 
 @media (max-width: 40rem) {
   .flip-col-rev { flex-direction: column-reverse; }

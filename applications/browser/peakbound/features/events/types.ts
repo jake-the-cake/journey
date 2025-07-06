@@ -4,6 +4,7 @@ export interface EventDataTypeServer {
 	end: string
 	location: string
 	title: string
+	host: string
 	directions?: string
 	description?: string
 	attending: any[]
@@ -18,6 +19,7 @@ export interface EventDataType {
 	endDate: string
 	location: string
 	title: string
+	host: string
 	directions?: string
 	description?: string
 	attending: any[]

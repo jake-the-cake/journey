@@ -6,17 +6,15 @@ import { useEffect, useState } from "react"
 import { MONTH_LABELS } from "@/features/calendar/constants"
 import { getMonthFromId, getTimeFromCode, getYearFromId } from "@/lib/datetime/code"
 import Loader from "../Loader"
+import Link from "next/link"
 
 export default function EventsList() {
 	const [ eventList, setEventList] = useState<any>([])
 	const { events } = useEvents()
 
-	console.log(eventList)
-
 	useEffect(() => {
 		if (events.isLoaded && eventList.length === 0) {
 			const data = events.getAllUpcomingEvents()
-			console.log(data)
 			setEventList(data)
 		}
 	}, [events])
@@ -39,7 +37,7 @@ export default function EventsList() {
 								{ eventList[key].map((event: any) => (
 									<div key={ event.id } className="event-item">
 										<h4>{ event.title }</h4>
-										<p>{ event.description }</p>
+										<p>{ event.description || <>Click <Link href={ `/events/${ event.id }` }>Here</Link> for more info.</> }</p>
 										<p><strong>Date: </strong> 
 											{ event.startDate + ' @ ' + formatTime(event.startTime) } - {( event.startDate !== event.endDate ? event.endDate + ' @ ' : '' ) + formatTime(event.endTime) }
 										</p>

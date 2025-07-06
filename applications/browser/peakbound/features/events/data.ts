@@ -1,7 +1,5 @@
 import { createDateId, getDateAndTimeFromCode, getMonthIdFromDateId } from "@/lib/datetime/code"
 import { EventDataType, EventsDataType, EventDataTypeServer } from "./types"
-import { CalendarMonthDataType } from "../calendar/types"
-import { CalendarData } from "../calendar/data"
 
 type EventsByMonthDataType = Record<string, EventDataType[]>
 
@@ -37,7 +35,7 @@ class EventsData {
 	parseEventFromServer(event: EventDataTypeServer): EventDataType {
 		const [startDate, startTime] = getDateAndTimeFromCode(event.start)
 		const [endDate, endTime] = getDateAndTimeFromCode(event.end)
-		const { attending, invited, title, location, description, directions } = event
+		const { attending, invited, title, host, location, description, directions } = event
 		return {
 			id: event._id,
 			attending,
@@ -47,6 +45,7 @@ class EventsData {
 			endDate,
 			endTime,
 			title,
+			host,
 			location,
 			description,
 			directions
@@ -101,6 +100,15 @@ class EventsData {
 		const events: EventDataType[] = []
 		Object.entries(this.data).filter(([key]) => key.startsWith(monthId)).forEach(value => events.push(...value[1]))
 		return [...events]
+	}
+
+	getDataById(id: string): EventDataType | null {
+		for (const monthId in this.data) {
+			const events = this.data[monthId]
+			const event = events.find(event => event.id === id)
+			if (event) return event
+		}
+		return null
 	}
 }
 
