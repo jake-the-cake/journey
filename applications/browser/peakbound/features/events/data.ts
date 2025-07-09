@@ -16,7 +16,7 @@ class EventsData {
 	async populateData(): Promise<EventsDataType> {
 		if (!this.isLoaded) {
 			this.data = {}
-			const response = await fetch('http://localhost:8000/events')
+			const response = await fetch(process.env.NEXT_PUBLIC_API_URL! + '/events')
 			if (!response.ok) {
 				throw new Error('Failed to fetch events data')
 			}

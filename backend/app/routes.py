@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .models import Event
+from .models.event import Event
 from .crud import remove_events, get_events, create_event
 
 router = APIRouter()

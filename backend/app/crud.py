@@ -1,5 +1,5 @@
 from .database import db
-from .models import Event
+from .models.event import Event
 
 async def get_events():
 	events = await db.events.find().to_list(100)
