@@ -1,27 +1,25 @@
+from db import db
 from bson import ObjectId
 from lib.controller import Controller
+from lib.field import Field
 
 class Model(Controller):
-	id: str = str(ObjectId())
-
-	def __init__(self, data: dict):
-		print(data)
-		if '_id' in data.keys():
+	id: str = Field(default=ObjectId, editable=False, type=str)
+	
+	def __init__(self, data: dict = None) -> None:
+		self.__db__ = db[self.__class__.__name__.lower()]
+		self.__populate_fields__()
+		if data and '_id' in data.keys():
 			self.__serialize_for_client__(data)
-		self.__populate_fields__(data)
-		print(self.__get_all_fields__())
-
-	def __init_subclass__(cls):
-		from db import db
-		cls.__db__ = db[cls.__name__.lower()]
+		self.__update_values__(data)
 
 	def __serialize_for_client__(self, data) -> None:
-		data.id = data['_id']
+		data['id'] = data['_id']
 		del data['_id']
 
 	def __serialize_for_mongo__(self, data) -> None:
-		data['_id'] = data.id
-		del data.id
+		data['_id'] = data['id']
+		del data['id']
 
 	def __get_all_fields__(self) -> dict:
 		fields = {}
@@ -37,16 +35,20 @@ class Model(Controller):
 					fields[k] = v
 		return fields
 
-	def __update_values__(self, data: dict, field: str = None) -> None:
-		if field:
-			setattr(self, field, data.get(field, None))
-		else:
-			for f in self.__fields__:
-				setattr(self, f, data.get(f, None))
+	def __update_value__(self, field: str, value: any) -> None:
+		setattr(self, field, value)
+		self.__fields__[field].set_value(value)
 
-	def __populate_fields__(self, data: dict) -> None:
+	def __update_values__(self, data: dict) -> None:
+		for field in self.__fields__.keys():
+			if data and field in data:
+				self.__update_value__(field, data[field])
+			else:
+				self.__update_value__(field, self.__fields__[field].value)
+
+	def __populate_fields__(self) -> None:
 		self.__fields__ = self.__get_all_fields__()
-		self.__update_values__(data)
+		for value in self.__fields__.values(): value.default()
 
 class Event(Model):
-	title = 'Title'
+	title = Field()
