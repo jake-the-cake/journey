@@ -1,7 +1,8 @@
 from db import db
 from bson import ObjectId
+from datetime import datetime
 from lib.controller import Controller
-from lib.field import Field
+from lib.field import Field, FieldId
 
 class Model(Controller):
 	id: str = Field(default=ObjectId, editable=False, type=str)
@@ -48,7 +49,14 @@ class Model(Controller):
 
 	def __populate_fields__(self) -> None:
 		self.__fields__ = self.__get_all_fields__()
-		for value in self.__fields__.values(): value.default()
+		for key in self.__fields__.keys(): 
+			value = self.__fields__[key]
+			value.default()
+			value.name = key
+
+class MetaData(Model):
+	date = Field(default=datetime.now().isoformat())
 
 class Event(Model):
 	title = Field()
+	meta = FieldId(model=MetaData)
