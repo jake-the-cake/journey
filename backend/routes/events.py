@@ -7,8 +7,14 @@ router = Blueprint('events', __name__)
 @router.get("/events")
 def read_events():
 	props = request.json or {}
-	result = Event().find(**props)
+	result = Event.find(**props)
 	return jsonify(result)
+
+@router.get('/events/<slug>')
+def read_event(slug):
+	result = Event.find_one(slug=slug)
+	if not result: return jsonify({ "event": "404 Not Found" }), 404
+	return jsonify(result), 200
 
 @router.post('/events/create')
 def create_event():
@@ -21,8 +27,8 @@ def create_event():
 def delete_events():
 	props = request.json or {}
 	if 'secret' in props.keys() and props['secret'] == 'delete':
-		result = Event().find()
+		result = Event.find()
 		for r in result:
-			Event().delete(r['id'])
+			Event.delete(r['id'])
 		return jsonify({ 'delete_count': len(result) })
 	return jsonify({ 'error': 'Invalid secret' }), 403
