@@ -1,3 +1,4 @@
+from lib.utils import serialize_for_client, serialize_for_mongo
 class Controller:
 	
 	def contains(self, **query) -> bool:
@@ -16,21 +17,22 @@ class Controller:
 		return None
 	def _find(self, **query) -> list:
 		if 'id' in query.keys():
-			self.__serialize_for_mongo__(query)
-		result = [r for r in self.__db__.find(query)]
+			serialize_for_mongo(query)
+		result = [r for r in self._db.find(query)]
 		for r in result:
-			self.__serialize_for_client__(r)
+			serialize_for_client(r)
 		return result
 
 	'''
 	CREATE Controls
 	'''
 	def insert(self) -> dict:
-		for field in self.__fields__.values():
+		self._generate()
+		for field in self._field_data.values():
 			field.validate()
 		data = self.data()
-		self.__serialize_for_mongo__(data)
-		result = self.__db__.insert_one(data)
+		serialize_for_mongo(data)
+		result = self._db.insert_one(data)
 		return result.inserted_id
 	
 
@@ -43,13 +45,13 @@ class Controller:
 		return cls()._delete(id)
 	def _delete(self, id: str) -> None:
 		if not id: return
-		self.__db__.delete_one({ '_id': id })
+		self._db.delete_one({ '_id': id })
 
 	'''
 	Return types
 	'''
 	def data(self) -> dict:
 		data = {}
-		for field in self.__fields__:
+		for field in self._field_data:
 			data[field] = getattr(self, field)
 		return data
