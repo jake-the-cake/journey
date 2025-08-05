@@ -21,12 +21,12 @@ class Field:
 	def init_field(self, model: any, name: str) -> None:
 		self.model: any = model
 		self.name: str = name
-		self.default()
+		self._default()
 
 	def set_value(self, value):
 		self.value = value
 		
-	def default(self) -> None:
+	def _default(self) -> None:
 		default_value = self._settings['default']
 		if default_value is None:
 			return

@@ -88,16 +88,16 @@ export default function EventListPreview() {
                 <div className='event-item' id={d.id} key={d.id}>
                   <div className='event-date'>
                     <div className='month'>
-                      {MONTH_LABELS_SHORT[getMonthFromId(d.startDate)! - 1]}
+                      {MONTH_LABELS_SHORT[getMonthFromId(d.start)! - 1]}
                     </div>
-                    <div className='date'>{getDateFromId(d.startDate)}</div>
-                    <div className='year'>{getYearFromId(d.startDate)}</div>
+                    <div className='date'>{getDateFromId(d.start)}</div>
+                    <div className='year'>{getYearFromId(d.start)}</div>
                   </div>
                   <div className='event-details'>
                     <div className='event-title'>{d.title}</div>
                     <div className='event-location'>{d.location}</div>
                     <div className='event-location'>
-                      {getTimeFromCode(d.startTime, 'h:m', 12)}
+                      {getTimeFromCode(d.start, 'h:m', 12)}
                     </div>
                   </div>
                   <div className='event-link'>

@@ -1,13 +1,12 @@
 import json
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
 from lib.model import Event
 
 router = Blueprint('events', __name__)
 
 @router.get("/events")
 def read_events():
-	props = request.json or {}
-	result = Event.find(**props)
+	result = Event.find(**g.get('body', {}))
 	return jsonify(result)
 
 @router.get('/events/<slug>')

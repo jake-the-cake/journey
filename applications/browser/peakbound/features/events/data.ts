@@ -1,5 +1,5 @@
 import { createDateId, getDateAndTimeFromCode, getMonthIdFromDateId } from "@/lib/datetime/code"
-import { EventDataType, EventsDataType, EventDataTypeServer } from "./types"
+import { EventDataType, EventsDataType } from "./types"
 
 type EventsByMonthDataType = Record<string, EventDataType[]>
 
@@ -21,10 +21,10 @@ class EventsData {
 				throw new Error('Failed to fetch events data')
 			}
 			const events = await response.json()
-			events.forEach((event: EventDataTypeServer) => {
-				const e: EventDataType = this.parseEventFromServer(event)
-				if (!this.data[e.startDate]) this.data[e.startDate] = []
-				this.data[e.startDate].push(e)
+			events.forEach((event: EventDataType) => {
+				// const e: EventDataType = this.parseEventFromServer(event)
+				if (!this.data[event.start]) this.data[event.start] = []
+				this.data[event.start].push(event)
 			})
 			return this.data 
 		} else {
@@ -32,25 +32,23 @@ class EventsData {
 		}
 	}
 
-	parseEventFromServer(event: EventDataTypeServer): EventDataType {
-		const [startDate, startTime] = getDateAndTimeFromCode(event.start)
-		const [endDate, endTime] = getDateAndTimeFromCode(event.end)
-		const { attending, invited, title, host, location, description, directions } = event
-		return {
-			id: event._id,
-			attending,
-			invited,
-			startDate,
-			startTime,
-			endDate,
-			endTime,
-			title,
-			host,
-			location,
-			description,
-			directions
-		}
-	}
+	// parseEventFromServer(event: EventDataType): EventDataType {
+	// 	const [startDate, startTime] = getDateAndTimeFromCode(event.start)
+	// 	const [endDate, endTime] = getDateAndTimeFromCode(event.end)
+	// 	const { attending, invited, title, host, location, description, directions } = event
+	// 	return {
+	// 		id: event.id,
+	// 		attending,
+	// 		invited,
+	// 		start: event.start,
+	// 		end: event.end,
+	// 		title,
+	// 		host,
+	// 		location,
+	// 		description,
+	// 		directions
+	// 	}
+	// }
 
 	getAllUpcomingEvents(): EventsByMonthDataType {
 		this.isLoaded = false

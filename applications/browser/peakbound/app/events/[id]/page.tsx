@@ -6,16 +6,20 @@ import { useEvents } from "@/features/events/context"
 import { EventDataType } from "@/features/events/types"
 import { DateTool } from "@/lib/datetime/date"
 import { sep } from "path"
+import { getDateAndTimeFromCode } from "@/lib/datetime/code"
 
 export default function EventPage() {
 	const params: { id: string } = useParams()
 	const { events } = useEvents()
 	const event: EventDataType | null = events.getDataById(params.id)
-	const eventData = new DateTool(event?.startDate!)
+	if (events.isLoaded && !event) { notFound() }
+	const [startDate, startTime] = getDateAndTimeFromCode(event?.start ?? '00000000:0000')
+	const [endDate, endTime] = getDateAndTimeFromCode(event?.end ?? '00000000:0000')
+	const eventStartDate = new DateTool(startDate)
+	const eventEndDate = new DateTool(endDate)
 	const dateOptions = {
 		format: 'w, m d, y'
 	}
-	if (events.isLoaded && !event) { notFound() }
 	return (
 		<main>
 			<section>
@@ -29,11 +33,17 @@ export default function EventPage() {
 						</div>
 						<div className="row-10 row-c">
 							<h3>Date:</h3>
-							<span>{ eventData.getFullDate(dateOptions) }</span>
+							<span>
+								{ eventStartDate.getFullDate(dateOptions) }
+								{ 
+									eventStartDate !== eventEndDate 
+									&& ' - ' + eventEndDate.getFullDate(dateOptions) 
+								}
+							</span>
 						</div>
 						<div className="row-10 row-c">
 							<h3>Starts At:</h3>
-							<span>{ event.startTime }</span>
+							<span>{ event.start }</span>
 						</div>
 						<button className="m-auto primary">Add To Your Calendar</button>
 						<div className="row-10 row-c">

@@ -1,15 +1,20 @@
 'use client'
 
-import { useEvents } from "@/features/events/context"
-import MiniCalendar from "../calendar/MiniCalendar"
 import { useEffect, useState } from "react"
+import { useEvents } from "@/features/events/context"
+
+import MiniCalendar from "@/components/calendar/MiniCalendar"
+import Loader from "@/components/Loader"
+
+import { 
+	getMonthFromId, 
+	getYearFromId
+} from "@/lib/datetime/code"
 import { MONTH_LABELS } from "@/features/calendar/constants"
-import { getMonthFromId, getTimeFromCode, getYearFromId } from "@/lib/datetime/code"
-import Loader from "../Loader"
-import Link from "next/link"
+import EventsListEvent from "./EventsListEvent"
 
 export default function EventsList() {
-	const [ eventList, setEventList] = useState<any>([])
+	const [eventList, setEventList] = useState<any>([])
 	const { events } = useEvents()
 
 	useEffect(() => {
@@ -18,10 +23,6 @@ export default function EventsList() {
 			setEventList(data)
 		}
 	}, [events])
-
-	function formatTime(time: string): string {
-		return getTimeFromCode(time, 'h:m', 12, 'lower')
-	}
 
 	return (
 		<>
@@ -35,15 +36,7 @@ export default function EventsList() {
 							<h3>{ MONTH_LABELS[getMonthFromId(key)! - 1] } { getYearFromId(key) }</h3>
 							<div className="event-list card accent">
 								{ eventList[key].map((event: any) => (
-									<div key={ event.id } className="event-item">
-										<h4>{ event.title }</h4>
-										<p>{ event.description || <>Click <Link href={ `/events/${ event.id }` }>Here</Link> for more info.</> }</p>
-										<p><strong>Date: </strong> 
-											{ event.startDate + ' @ ' + formatTime(event.startTime) } - {( event.startDate !== event.endDate ? event.endDate + ' @ ' : '' ) + formatTime(event.endTime) }
-										</p>
-										{ event.location && <p><strong>Location:</strong> { event.location }</p> }
-										{ event.directions && <p><strong>Directions:</strong> { event.directions }</p> }
-									</div>
+									<EventsListEvent event={ event }/>
 								)) }
 							</div>
 						</>

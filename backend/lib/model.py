@@ -6,14 +6,13 @@ from lib.utils import serialize_for_client, create_slug, create_id
 
 
 class Model(Controller):
-	id = Field(editable=False, type=str)
+	id = Field(editable=False)
 	
 	def __init__(self, data: dict = None) -> None:
 		self._setup_db()
 		if data is None: return
 		self._setup_model_fields(data)
 		self._load_initial_values(data)
-		# self._generate()
 
 	''' EXTERNAL METHODS '''
 	# returns the name of the db collection
@@ -47,8 +46,7 @@ class Model(Controller):
 			if cls is object:
 				continue
 			for k, v in cls.__dict__.items():
-				if (self._is_field(k, v)):
-					fields[k] = v
+				if (self._is_field(k, v)): fields[k] = v
 		return fields
 
 	# returns True if it's a valid field
