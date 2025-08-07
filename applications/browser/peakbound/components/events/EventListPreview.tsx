@@ -101,7 +101,7 @@ export default function EventListPreview() {
                     </div>
                   </div>
                   <div className='event-link'>
-                    <Link href={`/events/${d.id}`}>
+                    <Link href={`/events/${d.slug}`}>
                       <MoreInfo color='secondary' />
                       <span className='text-c'>Info</span>
                     </Link>

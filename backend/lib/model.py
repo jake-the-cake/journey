@@ -1,4 +1,4 @@
-from db import db
+from db import create_db_instance
 from datetime import datetime
 from lib.controller import Controller
 from lib.field import Field, FieldId, FieldList
@@ -25,7 +25,7 @@ class Model(Controller):
 	''' INTERNAL METHODS '''
 	# sets access to db collection		
 	def _setup_db(self) -> None:
-		self._db = db[self.get_collection_name()]
+		self._db = create_db_instance()[self.get_collection_name()]
 
 	# sets up the lists and dicts of model fields
 	def _setup_model_fields(self, data: dict) -> None:

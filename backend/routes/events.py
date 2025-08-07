@@ -1,4 +1,3 @@
-import json
 from flask import Blueprint, request, jsonify, g
 from lib.model import Event
 

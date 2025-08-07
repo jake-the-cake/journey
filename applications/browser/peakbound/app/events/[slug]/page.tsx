@@ -5,13 +5,12 @@ import Loader from "@/components/Loader"
 import { useEvents } from "@/features/events/context"
 import { EventDataType } from "@/features/events/types"
 import { DateTool } from "@/lib/datetime/date"
-import { sep } from "path"
 import { getDateAndTimeFromCode } from "@/lib/datetime/code"
 
 export default function EventPage() {
-	const params: { id: string } = useParams()
+	const params: { slug: string } = useParams()
 	const { events } = useEvents()
-	const event: EventDataType | null = events.getDataById(params.id)
+	const event: EventDataType | null = events.getDataByParam('slug', params.slug)
 	if (events.isLoaded && !event) { notFound() }
 	const [startDate, startTime] = getDateAndTimeFromCode(event?.start ?? '00000000:0000')
 	const [endDate, endTime] = getDateAndTimeFromCode(event?.end ?? '00000000:0000')

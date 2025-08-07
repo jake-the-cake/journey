@@ -108,6 +108,15 @@ class EventsData {
 		}
 		return null
 	}
+
+	getDataByParam(param: string, value: string): EventDataType | null {
+		for (const monthId in this.data) {
+			const events = this.data[monthId]
+			const event = events.find((event: any) => event[param] === value)
+			if (event) return event
+		}
+		return null
+	}
 }
 
 export { EventsData }

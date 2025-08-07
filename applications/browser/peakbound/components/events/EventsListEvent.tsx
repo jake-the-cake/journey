@@ -17,8 +17,9 @@ export default function EventsListEvent({ event }: IEventsListEvent) {
 	return (
 		<div key={ event.id } className="event-item">
 			<h4>{ event.title }</h4>
-			<p>{ event.description || <>Click <Link href={ `/events/${ event.id }` }>Here</Link> for more info.</> }</p>
-			<p><strong>Date: </strong> 
+			<p>{ event.description || <>Click <Link href={ `/events/${ event.slug }` }>Here</Link> for more info.</> }</p>
+			<p>
+				<strong>Date: </strong> 
 				{ startDate + ' @ ' + formatTime(startTime) } - {( startDate !== endDate ? endDate + ' @ ' : '' ) + formatTime(endTime) }
 			</p>
 			{ event.location && <p><strong>Location:</strong> { event.location }</p> }
