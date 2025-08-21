@@ -34,8 +34,6 @@ class Controller:
 		serialize_for_mongo(data)
 		result = self._db.insert_one(data)
 		return result.inserted_id
-	
-
 
 	'''
 	DELETE Controls

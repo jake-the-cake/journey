@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, g
-from lib.model import Event
+from models.event import Event
 
 router = Blueprint('events', __name__)
 
