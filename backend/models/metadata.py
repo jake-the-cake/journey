@@ -10,3 +10,4 @@ class MetaDataUpdate(Model):
 
 class MetaData(MetaDataUpdate):
 	updates = FieldList(required=False)
+	

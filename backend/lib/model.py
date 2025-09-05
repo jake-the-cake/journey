@@ -21,6 +21,16 @@ class Model(Controller):
 		self._update_value('id', create_id())
 
 	''' INTERNAL METHODS '''
+	# update the metadata if it is being used
+	def _update_meta(self) -> None:
+		pass
+		if 'meta' in self._field_keys and self.meta:
+			if self.meta is None:
+				something = self._field_data['meta']
+				self._update_value('meta', something.model(**self._field_data))
+			else:
+				pass
+
 	# sets access to db collection		
 	def _setup_db(self) -> None:
 		self._db = create_db_instance()[self.get_collection_name()]
